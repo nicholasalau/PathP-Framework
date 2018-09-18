@@ -41,10 +41,6 @@ class Map
         QFile file;
         QTextStream stream;
         QString line;
-
-        /*Popular obstacles*/
-        //Eigen::Vector2f topLeft;
-        //Eigen::Vector2f bottomRight;
 };
 
 #endif // MAP_H

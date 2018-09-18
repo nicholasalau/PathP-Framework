@@ -87,15 +87,5 @@ void RenderArea::drawMap(QPainter &painter)
         flagFirst = 1;
         y = i + displacement;
     }
-    /*for (int i = 0; i <= rows; i++)
-        {
-            for(int j = 0; j <= columns; j++)
-            {
-                if(map->mapMatrix[i][j].isOccupied == 1.00)
-                {
-                    painter.drawPoint(i,j);
-                }
-            }
-        }*/
     painter.restore();
 }
