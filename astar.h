@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "map.h"
 #include <vector>
+#include <algorithm>
 
 struct Node
 {

@@ -33,6 +33,23 @@ Path AStar::findPath(Node *start, Node *end)
     while(path.status == Path::UNPROCCESSED)
     {
         //Procura path
+        if(openList.size() == 0)
+        {
+            //Acabou a lista, logo nao temos caminho
+            path.status = Path::IMPOSSIBLE;
+            break;
+        }
+        std::sort(openList.begin(), openList.end());
+        Node* actual = openList[0]; //Ordenar a lista em ordem crescente, logo primeiro valor eh o menor
+        /*Remove no(actual) com menor custo F da lista aberta
+          Add na lista fechada
+          Processar nos vizinhos actual
+          Define no pai de cada vizinho
+          Se vizinho do no atual ja estiver na lista aberta, verificar se o caminho pode ser encurtado se usarmos
+          o no atual como pai
+                    Se encurtar
+                        Atualiza o pai do novo vizinho p atual
+                        Atualiza custo o novo custo F*/
     }
 
     return path;
