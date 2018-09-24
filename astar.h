@@ -3,16 +3,17 @@
 
 #include "constants.h"
 #include "map.h"
+#include "cell.h"
 #include <vector>
 #include <algorithm>
 
 struct Node
 {
     bool isBlocked;
-    int x, y; //Coordenadas do nodo
     int GCost = 0, HCost = 0, FCost = 0;
     Node *parent = nullptr;                 //Essas estruturas deveriam ir para a struct Cell?
     Node *neighbors[MAX_NEIGHBORS] = {};
+    Cell *cellptr = nullptr; //APONTAR PARA ONDE? MAPMATRIX?
 };
 
 struct Path

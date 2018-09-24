@@ -18,7 +18,9 @@ void AStar::initAStar(Path *path, Node *start, Node *end)
 
     //Inicializa o no start
     start->FCost = start->GCost = 0;
-    start->HCost = calculateHCost(start, end);
+
+    //start->HCost = calculateHCost(start, end);
+    //TODO: Create calculateHCost function
     start->parent = nullptr;
 
 }

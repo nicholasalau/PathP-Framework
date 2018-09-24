@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include "constants.h"
+#include "cell.h"
 #include <QTextStream>
 #include <QFile>
 #include <QString>
@@ -11,14 +12,6 @@
 #include <utility> //pair,make_pair,etc
 #include <eigen3/Eigen/Dense> //Vector2f
 #include <QtGlobal> //qInfo()
-
-struct Cell
-{
-    float isOccupied;   /*
-                           0 - Free
-                           1 - Block
-                         0.5 - No knowledge   */
-};
 
 class Map
 {
@@ -33,7 +26,7 @@ class Map
         std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f> > obstacles;
         Cell mapMatrix[WORLD_HEIGHT][WORLD_WIDTH];
         int pixelRepresentation;   /*(i.e. 1 cell = 3x3 square pixel, instead of 1 cell = 1 pixel)*/
-        //https://www.tutorialspoint.com/cplusplus/cpp_constructor_destructor.htm
+        //https://www.tutorialspoint.com/cplusplus/cpp_constructor_destructor.html
 
     private:
         /*Ler arquivo*/

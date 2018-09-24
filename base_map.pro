@@ -6,6 +6,7 @@
 
 QT       += core gui
 CONFIG += console
+QMAKE_CXXFLAGS += -std=c++0x
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,6 +24,7 @@ HEADERS  += mainwindow.h \
     renderarea.h \
     map.h \
     constants.h \
-    astar.h
+    astar.h \
+    cell.h
 
 FORMS    += mainwindow.ui

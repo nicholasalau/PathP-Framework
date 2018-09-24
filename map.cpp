@@ -22,7 +22,7 @@ void Map::setMap()
 
     while(obj_count != 0)
     {
-        aux_pos_x2 = aux_pos_x1 + 2;
+        aux_pos_x2 = aux_pos_x1 + 2; //+2 para apontar para a coordenada x do bottom right
         aux_pos_y2 = aux_pos_y1 + 2;
         diff_x = abs(coordinates.at(aux_pos_x1).toInt() - coordinates.at(aux_pos_x2).toInt());
         diff_y = abs(coordinates.at(aux_pos_y1).toInt() - coordinates.at(aux_pos_y2).toInt());
@@ -40,7 +40,7 @@ void Map::setMap()
                 //qDebug() << "mapMatrix["<< matrix_x+j << "]" << "[" << matrix_y+i << "]";
             }
         }
-        aux_pos_x1 = aux_pos_x1 + 4;
+        aux_pos_x1 = aux_pos_x1 + 4; //+4 para avancar para o proximo objeto na lista das coordenadas
         aux_pos_y1 = aux_pos_y1 + 4;
         obj_count--;
     }
@@ -86,6 +86,8 @@ void Map::initMapMatrix()
         for(j = 0; j <= columns; j++)
         {
             mapMatrix[j][i].isOccupied = 0.0;
+            /*mapMatrix[j][i].x = j;
+            mapMatrix[j][i].y = i;*/
         }
     }
     return;
