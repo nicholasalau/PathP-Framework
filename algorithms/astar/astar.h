@@ -2,20 +2,11 @@
 #define ASTAR_H
 
 #include "constants.h"
-#include "map.h"
+#include "src/map.h"
 #include "cell.h"
 #include "node.h"
 #include <vector>
 #include <algorithm>
-
-/*struct Node
-{
-    bool isBlocked;
-    int GCost = 0, HCost = 0, FCost = 0;
-    Node *parent = nullptr;                 //Essas estruturas deveriam ir para a struct Cell?
-    Node *neighbors[MAX_NEIGHBORS] = {};
-    Cell *cellptr = nullptr;
-};*/
 
 struct Path
 {

@@ -14,18 +14,18 @@ TARGET = base_map
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    renderarea.cpp \
-    map.cpp \
-    astar.cpp
+SOURCES += src/main.cpp\
+        src/mainwindow.cpp \
+    src/renderarea.cpp \
+    src/map.cpp \
+    algorithms/astar/astar.cpp
 
-HEADERS  += mainwindow.h \
-    renderarea.h \
-    map.h \
-    constants.h \
-    astar.h \
-    cell.h \
-    node.h
+HEADERS  += src/mainwindow.h \
+    src/renderarea.h \
+    src/map.h \
+    src/constants.h \
+    algorithms/astar/astar.h \
+    src/cell.h \
+    algorithms/astar/node.h
 
-FORMS    += mainwindow.ui
+FORMS    += src/mainwindow.ui

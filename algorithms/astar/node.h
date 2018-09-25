@@ -2,9 +2,10 @@
 #define NODE_H
 
 #include "constants.h"
-#include "cell.h"
+#include "src/cell.h"
+#include "src/map.h"
 
-class Node : public Cell
+class Node
 {
     public:
         //bool isBlocked;
@@ -12,6 +13,7 @@ class Node : public Cell
         int GCost = 0, HCost = 0, FCost = 0;
         Node *parent = nullptr;
         Node *neighbors[MAX_NEIGHBORS] = {};
+        Cell *cellptr = mapMatrix[0][0];
 };
 
 
