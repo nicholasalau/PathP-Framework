@@ -25,6 +25,7 @@ HEADERS  += mainwindow.h \
     map.h \
     constants.h \
     astar.h \
-    cell.h
+    cell.h \
+    node.h
 
 FORMS    += mainwindow.ui

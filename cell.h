@@ -4,7 +4,7 @@
 class Cell
 {
     public:
-        float isOccupied;   /*
+        double isOccupied;   /*
                                0 - Free
                                1 - Block
                              0.5 - No knowledge   */

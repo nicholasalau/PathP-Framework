@@ -23,5 +23,5 @@ int main(int argc, char *argv[])
  *
  *-> Fazer cada célula 3x3, ou seja, aumentar a "escala" de cada pixel [OK]
  *
- *-> Incluir A* [30%]
+ *-> Incluir A* [75%]
 */

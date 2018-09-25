@@ -4,17 +4,18 @@
 #include "constants.h"
 #include "map.h"
 #include "cell.h"
+#include "node.h"
 #include <vector>
 #include <algorithm>
 
-struct Node
+/*struct Node
 {
     bool isBlocked;
     int GCost = 0, HCost = 0, FCost = 0;
     Node *parent = nullptr;                 //Essas estruturas deveriam ir para a struct Cell?
     Node *neighbors[MAX_NEIGHBORS] = {};
-    Cell *cellptr = nullptr; //APONTAR PARA ONDE? MAPMATRIX?
-};
+    Cell *cellptr = nullptr;
+};*/
 
 struct Path
 {
@@ -29,6 +30,7 @@ class AStar
         AStar();
         void addNeighbors(Node *n);
         int calculateHCost(Node *actual, Node *final);
+        int movementCost(Node *actual, Node *neighbor);
         void initAStar(Path *path, Node *start, Node *end);
         Path findPath(Node *start, Node *end);
 
