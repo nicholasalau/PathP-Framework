@@ -1,9 +1,9 @@
 #ifndef ASTAR_H
 #define ASTAR_H
 
-#include "constants.h"
+#include "src/constants.h"
 #include "src/map.h"
-#include "cell.h"
+#include "src/cell.h"
 #include "node.h"
 #include <vector>
 #include <algorithm>

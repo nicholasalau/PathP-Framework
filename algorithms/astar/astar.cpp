@@ -19,7 +19,7 @@ void AStar::initAStar(Path *path, Node *start, Node *end)
     //Inicializa o no start
     start->FCost = start->GCost = 0;
 
-    start->HCost = calculateHCost(start, end);
+    start->HCost = calculateHCost(&start, &end);
     start->parent = nullptr;
 
 }
@@ -64,7 +64,7 @@ Path AStar::findPath(Node *start, Node *end)
 
         //Processar nos vizinhos
 
-        //TODO : Adicionar os nos vizinhos no vector de neighbors e atualizar neighborCount   [...]
+        //TODO : Adicionar os nos vizinhos no vector de neighbors e atualizar neighborCount   [  ]
         //       e calcular o custo F, G e H de cada um e adiciona-los na openList            [OK]
 
         for(int i = 0; i < actual->neighborCount; i++)
@@ -112,6 +112,7 @@ Path AStar::findPath(Node *start, Node *end)
     return path;
 }
 
+//TODO: Ajeitar .x de cada nodo
 int AStar::movementCost(Node *actual, Node *neighbor)
 {
     int movementCost = 0;

@@ -10,6 +10,7 @@ class Cell
                              0.5 - No knowledge   */
         int x;
         int y; //Coordenadas x e y
+
 };
 
 #endif // CELL_H

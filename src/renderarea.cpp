@@ -28,6 +28,8 @@ void RenderArea::drawArea(QPainter &painter)
     painter.restore();
 }
 
+
+//TODO : Usar as celulas incializadas Cell begin e Cell end
 /*void RenderArea::drawInitPos(QPainter &painter)
 {
     painter.save();

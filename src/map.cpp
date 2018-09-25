@@ -16,6 +16,12 @@ void Map::setMap()
 
     readFile();
 
+    defineCells(&begin, &end);
+
+    //qDebug() << begin.x << "POS X INICIO";
+    //qDebug() << begin.y << "POS Y INICIO";
+    //qDebug() << end.x << "POS X FIM";
+    //qDebug() << end.y << "POS Y FIM";
     //qDebug() << "Coordenadas chegou: "<<coordinates;
     int size = coordinates.size();
     int obj_count = size / 4;
@@ -86,8 +92,8 @@ void Map::initMapMatrix()
         for(j = 0; j <= columns; j++)
         {
             mapMatrix[j][i].isOccupied = 0.0;
-            /*mapMatrix[j][i].x = j;
-            mapMatrix[j][i].y = i;*/
+            mapMatrix[j][i].x = j;
+            mapMatrix[j][i].y = i;
         }
     }
     return;
@@ -115,4 +121,12 @@ void Map::printMatrix()
 void Map::setPixelRepresentation(int pr)
 {
     pixelRepresentation = pr;
+}
+
+void Map::defineCells(Cell *begin, Cell *end)
+{
+    begin->x = START_POS_X;
+    begin->y = START_POS_Y;
+    end->x = END_POS_X;
+    end->y = END_POS_Y;
 }

@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "constants.h"
+#include "src/constants.h"
 #include "src/cell.h"
 #include "src/map.h"
 
@@ -13,7 +13,8 @@ class Node
         int GCost = 0, HCost = 0, FCost = 0;
         Node *parent = nullptr;
         Node *neighbors[MAX_NEIGHBORS] = {};
-        Cell *cellptr = mapMatrix[0][0];
+        Map *map;
+        Cell *cellptr = nullptr;
 };
 
 
