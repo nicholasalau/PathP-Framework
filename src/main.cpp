@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "map.h"
 #include "renderarea.h"
+#include "algorithms/astar/astar.h"
+#include "algorithms/astar/node.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -9,6 +11,11 @@ int main(int argc, char *argv[])
     Map map;
     map.setPixelRepresentation(10);
     map.setMap();
+    AStar astar;
+    Path path;
+    Node start;
+    Node end;
+    astar.initAStar(&path, &start, &end);
 
     MainWindow w(&map);
     w.show();

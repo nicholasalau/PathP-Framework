@@ -2,7 +2,7 @@
 
 AStar::AStar()
 {
-
+    map = new Map;
 }
 
 void AStar::initAStar(Path *path, Node *start, Node *end)
@@ -19,12 +19,16 @@ void AStar::initAStar(Path *path, Node *start, Node *end)
     //Inicializa o no start
     start->FCost = start->GCost = 0;
 
-    start->HCost = calculateHCost(&start, &end);
+    //start->HCost = calculateHCost(&start, &end);
     start->parent = nullptr;
+    //start->cellptr =
+    qDebug() << "Map chegou:";
+    qDebug() << map->pixelRepresentation;
+
 
 }
 
-Path AStar::findPath(Node *start, Node *end)
+/*Path AStar::findPath(Node *start, Node *end)
 {
     Path path;
 
@@ -150,7 +154,7 @@ int AStar::calculateHCost(Node *actual, Node *final)
 
     return h;
 }
-
+*/
 
 
 
