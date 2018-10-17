@@ -21,14 +21,13 @@ class AStar
         AStar();
         void addNeighbors(Node *n);
         int calculateHCost(Node *actual, Node *final);
+        bool isValid(int row, int col);
         int movementCost(Node *actual, Node *neighbor);
-        void initAStar(Path *path, Node *start, Node *end);
+        void initAStar(Path *path, Node *start, Node *end, Map *map);
         Path findPath(Node *start, Node *end);
 
         std::vector<Node*> openList;
         std::vector<Node*> closedList;
-        Map *map;
-
 };
 
 #endif // ASTAR_H

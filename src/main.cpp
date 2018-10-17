@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
     map.setPixelRepresentation(10);
     map.setMap();
     AStar astar;
-    Path path;
+    Path path;          // TODO: Criar "algorithmInit(&map)" para inicializar os algoritmos escolhidos
     Node start;
     Node end;
-    astar.initAStar(&path, &start, &end);
+    astar.initAStar(&path, &start, &end, &map);
 
     MainWindow w(&map);
     w.show();

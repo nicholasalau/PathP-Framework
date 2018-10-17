@@ -2,7 +2,7 @@
 
 RenderArea::RenderArea(QWidget *parent) : QWidget(parent)
 {
-    map = new Map;
+
 }
 
 void RenderArea::paintEvent(QPaintEvent *)

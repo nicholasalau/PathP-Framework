@@ -20,8 +20,6 @@ public:
 private:
     Ui::MainWindow *ui;
     RenderArea *area;
-    //Map *map;
-
 };
 
 #endif // MAINWINDOW_H

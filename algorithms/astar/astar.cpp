@@ -1,11 +1,12 @@
 ﻿#include "astar.h"
+#include "src/map.h"
 
 AStar::AStar()
 {
-    map = new Map;
+
 }
 
-void AStar::initAStar(Path *path, Node *start, Node *end)
+void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 {
     //Inicializa path
     path->start = start;
@@ -13,22 +14,28 @@ void AStar::initAStar(Path *path, Node *start, Node *end)
     path->status = Path::UNPROCCESSED;
 
     //Inicializa listas
-    openList.clear(); //Nodos a serem analisados
+    openList.clear();   //Nodos a serem analisados
     closedList.clear(); //Nodos ja analisados
 
-    //Inicializa o no start
-    start->FCost = start->GCost = 0;
+    //Inicializa o nó end
+    end->cellptr = map->end;
 
-    //start->HCost = calculateHCost(&start, &end);
+    //Inicializa o nó start
+    start->FCost = start->GCost = 0;
+    start->HCost = calculateHCost(start, end);
     start->parent = nullptr;
-    //start->cellptr =
-    qDebug() << "Map chegou:";
-    qDebug() << map->pixelRepresentation;
+    start->cellptr = map->begin;
+
+    //qDebug() << "end.x = " << end->cellptr.x;
+    //qDebug() << "end.y = " << end->cellptr.y;
+
+    //qDebug() << "Map chegou:";
+    //qDebug() << map->pixelRepresentation;
 
 
 }
 
-/*Path AStar::findPath(Node *start, Node *end)
+Path AStar::findPath(Node *start, Node *end)
 {
     Path path;
 
@@ -67,9 +74,29 @@ void AStar::initAStar(Path *path, Node *start, Node *end)
         closedList.push_back(actual);
 
         //Processar nos vizinhos
+        /*
+         * Gerar 8 vizinhos do nó visitado (i, j)
+         * N -> (i-1, j)
+         * S -> (i+1, j)
+         * L -> (i, j+1)
+         * O -> (i, j-1)
+         * NE -> (i-1. j+1)
+         * NO -> (i-1, j-1)
+         * SE -> (i+1, j+1)
+         * SO -> (i+1, j-1)
+         */
 
         //TODO : Adicionar os nos vizinhos no vector de neighbors e atualizar neighborCount   [  ]
         //       e calcular o custo F, G e H de cada um e adiciona-los na openList            [OK]
+
+
+
+
+
+
+
+
+
 
         for(int i = 0; i < actual->neighborCount; i++)
         {
@@ -116,12 +143,11 @@ void AStar::initAStar(Path *path, Node *start, Node *end)
     return path;
 }
 
-//TODO: Ajeitar .x de cada nodo
 int AStar::movementCost(Node *actual, Node *neighbor)
 {
     int movementCost = 0;
     //Diagonal
-    if(actual->x != neighbor->x && actual->y != neighbor->y)
+    if(actual->cellptr.x != neighbor->cellptr.x && actual->cellptr.y != neighbor->cellptr.y)
     {
         movementCost = 14;
         return movementCost;
@@ -139,8 +165,8 @@ int AStar::calculateHCost(Node *actual, Node *final)
     int absX = 0;
     int absY = 0;
     int h = 0;
-    absX = abs(actual->x - final->x);
-    absY = abs(actual->y - final->y);
+    absX = abs(actual->cellptr.x - final->cellptr.x);
+    absY = abs(actual->cellptr.y - final->cellptr.y);
 
     //Distancia de Manhattan considerando diagonais
     if (absX > absY)
@@ -154,9 +180,11 @@ int AStar::calculateHCost(Node *actual, Node *final)
 
     return h;
 }
-*/
 
-
-
-
-
+bool AStar::isValid(int row, int col)
+{
+    if ((row >= 0) && (row < WORLD_HEIGHT) && (col >= 0) && (col < WORLD_WIDTH))
+    {
+        return (true);
+    }
+}

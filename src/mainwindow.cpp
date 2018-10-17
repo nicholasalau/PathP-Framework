@@ -8,7 +8,6 @@ MainWindow::MainWindow(Map *map, QWidget *parent) :
     ui->setupUi(this);
     area = ui->area;
     area->map = map;
-    //map->setMap();
 }
 
 
