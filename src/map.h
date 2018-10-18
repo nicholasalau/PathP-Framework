@@ -33,7 +33,7 @@ class Map
 
     private:
         /*Ler arquivo*/
-        const char * filename = "/home/phi/file/maps";
+        const char * filename = "/home/nicholas/file/maps";
         QFile file;
         QTextStream stream;
         QString line;

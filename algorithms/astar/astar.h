@@ -19,12 +19,11 @@ class AStar
 {
     public:
         AStar();
-        void addNeighbors(Node *n);
+        void defineNeighbors(Node *actual);
         int calculateHCost(Node *actual, Node *final);
-        bool isValid(int row, int col);
         int movementCost(Node *actual, Node *neighbor);
         void initAStar(Path *path, Node *start, Node *end, Map *map);
-        Path findPath(Node *start, Node *end);
+        Path findPath(Node *start, Node *end, Map *map);
 
         std::vector<Node*> openList;
         std::vector<Node*> closedList;

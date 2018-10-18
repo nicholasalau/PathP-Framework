@@ -15,8 +15,14 @@ int main(int argc, char *argv[])
     Path path;          // TODO: Criar "algorithmInit(&map)" para inicializar os algoritmos escolhidos
     Node start;
     Node end;
-    astar.initAStar(&path, &start, &end, &map);
-
+    path = astar.findPath(&start, &end, &map);
+    qDebug() << path.status;
+    switch(path.status)
+    {
+    case Path::FOUND : qDebug() << "FOUND"; break;
+    case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;
+    case Path::IMPOSSIBLE : qDebug() << "IMPOSSIBLE"; break;
+    }
     MainWindow w(&map);
     w.show();
 

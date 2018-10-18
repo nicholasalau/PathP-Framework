@@ -35,11 +35,11 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 
 }
 
-Path AStar::findPath(Node *start, Node *end)
+Path AStar::findPath(Node *start, Node *end, Map *map)
 {
     Path path;
 
-    initAStar(&path, start, end);
+    initAStar(&path, start, end, map);
 
     openList.push_back(start);
 
@@ -61,7 +61,7 @@ Path AStar::findPath(Node *start, Node *end)
         //Ordenando a lista em ordem crescente, logo primeiro valor eh o com menor custo F
         Node *actual = openList[0];
 
-        if(actual == end)
+        if(actual->cellptr.x == end->cellptr.x && actual->cellptr.y == end->cellptr.y)
         {
             path.status = Path::FOUND;
             break;
@@ -73,30 +73,8 @@ Path AStar::findPath(Node *start, Node *end)
         //Add no actual na lista fechada
         closedList.push_back(actual);
 
-        //Processar nos vizinhos
-        /*
-         * Gerar 8 vizinhos do nó visitado (i, j)
-         * N -> (i-1, j)
-         * S -> (i+1, j)
-         * L -> (i, j+1)
-         * O -> (i, j-1)
-         * NE -> (i-1. j+1)
-         * NO -> (i-1, j-1)
-         * SE -> (i+1, j+1)
-         * SO -> (i+1, j-1)
-         */
-
-        //TODO : Adicionar os nos vizinhos no vector de neighbors e atualizar neighborCount   [  ]
-        //       e calcular o custo F, G e H de cada um e adiciona-los na openList            [OK]
-
-
-
-
-
-
-
-
-
+        //Definir os nos vizinhos
+        defineNeighbors(actual);
 
         for(int i = 0; i < actual->neighborCount; i++)
         {
@@ -104,7 +82,7 @@ Path AStar::findPath(Node *start, Node *end)
             //Se o vizinho for bloqueado,
             //ou se o vizinho esta na lista fechada, ignora
             //comando : find -> parametros : (comeco,fim,procuro)
-            if((neighbor->isOccupied == 1.00) || std::find(closedList.begin(), closedList.end(), neighbor) != closedList.end())
+            if((neighbor->cellptr.isOccupied == 1.00) || std::find(closedList.begin(), closedList.end(), neighbor) != closedList.end())
             {
                 continue;
             }
@@ -181,10 +159,42 @@ int AStar::calculateHCost(Node *actual, Node *final)
     return h;
 }
 
-bool AStar::isValid(int row, int col)
+void AStar::defineNeighbors(Node *actual)
 {
-    if ((row >= 0) && (row < WORLD_HEIGHT) && (col >= 0) && (col < WORLD_WIDTH))
+    /*
+     * Gerar 8 vizinhos do nó visitado (i, j)
+     * N -> (i-1, j)
+     * S -> (i+1, j)
+     * L -> (i, j+1)
+     * O -> (i, j-1)
+     * NE -> (i-1. j+1)
+     * NO -> (i-1, j-1)
+     * SE -> (i+1, j+1)
+     * SO -> (i+1, j-1)
+     */
+    Node *neighbor;
+
+    int initX = 0, initY = 0, endX = 0, endY = 0, row = 0, col = 0;
+    //Define variaveis para varrer todos vizinhos de um nodo
+    initX = ((actual->cellptr.x - 1) < MIN_X) ? actual->cellptr.x : actual->cellptr.x - 1;
+    endX = ((actual->cellptr.x + 1) < MAX_X) ? actual->cellptr.x : actual->cellptr.x - 1;
+    initY = ((actual->cellptr.y - 1) < MIN_Y) ? actual->cellptr.y : actual->cellptr.y - 1;
+    endY = ((actual->cellptr.y + 1) < MAX_Y) ? actual->cellptr.y : actual->cellptr.y - 1;
+
+    for(row = initY; row <= endY; row++)
     {
-        return (true);
+        for(col = initX; col <= endX; col++)
+        {
+            if(row != actual->cellptr.y && col != actual->cellptr.x)
+            {
+                //Definir neighbor
+                neighbor->cellptr.x = col;
+                neighbor->cellptr.y = row;
+                neighbor->FCost = neighbor->GCost = 0;
+                actual->addNeighbor(neighbor);
+
+            }
+        }
     }
+
 }

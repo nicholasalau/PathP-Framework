@@ -14,6 +14,12 @@ class Node
         Node *neighbors[MAX_NEIGHBORS] = {};
         Map *map;
         Cell cellptr;
+        inline void addNeighbor(Node *n)
+        {
+            Node** ptr = neighbors + neighborCount;
+            neighborCount++;
+            *ptr = n;
+        }
 };
 
 

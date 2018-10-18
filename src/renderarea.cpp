@@ -9,8 +9,8 @@ void RenderArea::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     drawArea(painter);
-    //drawInitPos(painter);
-    //drawEndPos(painter);
+    drawInitPos(painter);
+    drawEndPos(painter);
     drawMap(painter);
     emit painting();
 }
@@ -28,14 +28,12 @@ void RenderArea::drawArea(QPainter &painter)
     painter.restore();
 }
 
-
-//TODO : Usar as celulas incializadas Cell begin e Cell end
-/*void RenderArea::drawInitPos(QPainter &painter)
+void RenderArea::drawInitPos(QPainter &painter)
 {
     painter.save();
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::black);
-    painter.setBrush(QBrush<(Qt::blue));
+    painter.setBrush(QBrush(Qt::blue));
     painter.drawEllipse(START_POS_X, START_POS_Y, 8.0, 8.0);
     painter.restore();
 
@@ -50,7 +48,7 @@ void RenderArea::drawEndPos(QPainter &painter)
     painter.drawEllipse(END_POS_X, END_POS_Y, 8.0, 8.0);
     painter.restore();
 
-}*/
+}
 
 void RenderArea::drawMap(QPainter &painter)
 {
