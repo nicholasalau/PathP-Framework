@@ -12,7 +12,8 @@ struct Path
 {
     Node *start;
     Node *end;
-    enum {UNPROCCESSED, FOUND, IMPOSSIBLE} status;
+    enum Status {UNPROCCESSED, FOUND, IMPOSSIBLE};
+    Status status;
 };
 
 class AStar

@@ -39,12 +39,16 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 {
     Path path;
 
+    int n = 0; //Debug
+
     initAStar(&path, start, end, map);
 
     openList.push_back(start);
 
     while(path.status == Path::UNPROCCESSED)
     {
+        qDebug() << "[DEBUG]Número iterações do while: " << n;
+
         //Procura path
         if(openList.size() == 0)
         {
@@ -55,14 +59,24 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         //Ordena lista aberta pelo menor FCost
         std::sort(openList.begin(), openList.end(), [](Node *a, Node *b)
         {
+            qDebug() << "[DEBUG]Reordenou.";
             return a->FCost < b->FCost;
         });
 
+        qDebug() << "[DEBUG]Teste reordenamento: ";
         //Ordenando a lista em ordem crescente, logo primeiro valor eh o com menor custo F
         Node *actual = openList[0];
-
-        if(actual->cellptr.x == end->cellptr.x && actual->cellptr.y == end->cellptr.y)
+        Node *scnd;
+        qDebug() << "[DEBUG]Coordenadas do PRIMEIRO nodo da openList e seu custo F: X[" << actual->cellptr.x << "] Y[" << actual->cellptr.y << "] Custo F = " << actual->FCost;
+        if(openList[1])
         {
+            scnd = openList[1];
+            qDebug() << "[DEBUG]Verificando custo F do SEGUNDO nodo da lista: ";
+        }
+
+        if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
+        {
+            qDebug() << "[DEBUG]Entrou IF do FOUND.";
             path.status = Path::FOUND;
             break;
         }
@@ -73,7 +87,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         //Add no actual na lista fechada
         closedList.push_back(actual);
 
-        //Definir os nos vizinhos
+        //Definir os nós vizinhos
         defineNeighbors(actual);
 
         for(int i = 0; i < actual->neighborCount; i++)
@@ -116,6 +130,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
             }
         }
+        n++;
     }
 
     return path;
@@ -172,7 +187,10 @@ void AStar::defineNeighbors(Node *actual)
      * SE -> (i+1, j+1)
      * SO -> (i+1, j-1)
      */
+    qDebug() << "[DEBUG]Definindo os vizinhos.";
     Node *neighbor;
+
+    int d = 0; //Debug
 
     int initX = 0, initY = 0, endX = 0, endY = 0, row = 0, col = 0;
     //Define variaveis para varrer todos vizinhos de um nodo
@@ -185,16 +203,20 @@ void AStar::defineNeighbors(Node *actual)
     {
         for(col = initX; col <= endX; col++)
         {
+            qDebug() << "[DEBUG]Entrou no FOR do defineNeighbors.";
             if(row != actual->cellptr.y && col != actual->cellptr.x)
             {
+                qDebug() << "[DEBUG]Entrou no IF do defineNeighbors.";
                 //Definir neighbor
                 neighbor->cellptr.x = col;
                 neighbor->cellptr.y = row;
                 neighbor->FCost = neighbor->GCost = 0;
+                qDebug() << "[DEBUG]Chamando addNeighbor.";
                 actual->addNeighbor(neighbor);
-
             }
+            d++;
         }
     }
+    qDebug() << "[DEBUG]Iteraçoes do FOR  = " << d;
 
 }

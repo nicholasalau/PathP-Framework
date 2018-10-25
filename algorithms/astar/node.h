@@ -16,9 +16,12 @@ class Node
         Cell cellptr;
         inline void addNeighbor(Node *n)
         {
+            qDebug() << "[DEBUG]Funçao addNeighbor.";
             Node** ptr = neighbors + neighborCount;
+            qDebug() << "[DEBUG]Vizinho: " << neighbors[neighborCount];
             neighborCount++;
             *ptr = n;
+
         }
 };
 
