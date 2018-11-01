@@ -47,11 +47,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
     while(path.status == Path::UNPROCCESSED)
     {
-        qDebug() << "[DEBUG]Número iterações do while: " << n;
+        qDebug() << "[LOOOOOOOOOP "<< n << "]" << "Número iterações do while: " << n;
 
         //Procura path
         if(openList.size() == 0)
         {
+            qDebug() << "[DEBUG] openList vazia -> IMPOSSIBLE.";
             //Lista aberta vazia, logo nao temos caminho
             path.status = Path::IMPOSSIBLE;
             break;
@@ -66,12 +67,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         qDebug() << "[DEBUG]Teste reordenamento: ";
         //Ordenando a lista em ordem crescente, logo primeiro valor eh o com menor custo F
         Node *actual = openList[0];
-        Node *scnd;
-        qDebug() << "[DEBUG]Coordenadas do PRIMEIRO nodo da openList e seu custo F: X[" << actual->cellptr.x << "] Y[" << actual->cellptr.y << "] Custo F = " << actual->FCost;
+        Node *scnd = new Node();
+        qDebug() << "Coordenadas do PRIMEIRO nodo da openList e seu custo F: X[" << actual->cellptr.x << "] Y[" << actual->cellptr.y << "] Custo F = " << actual->FCost;
         if(openList[1])
         {
             scnd = openList[1];
-            qDebug() << "[DEBUG]Verificando custo F do SEGUNDO nodo da lista: ";
+            qDebug() << "Verificando custo F do SEGUNDO nodo da lista: ";
         }
 
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
@@ -89,10 +90,24 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
         //Definir os nós vizinhos
         defineNeighbors(actual);
+        qDebug() << "[DEBUG]Saiu defineNeigbors.";
 
-        for(int i = 0; i < actual->neighborCount; i++)
+        int f2 = 0; //Debug
+
+        int i = 0;
+
+        for(i = 0; i < actual->neighborCount; i++)
         {
+            qDebug() << "[DEBUG] Percorrendo os vizinhos do nodo. Número de iterações:" << f2;
+
+            //Node *neighbor = new Node();
             Node *neighbor = actual->neighbors[i];
+
+            qDebug() << "[DEBUG] Verificando primeiro vizinho a ser analisado:" << i;
+            qDebug() << "[DEBUG] x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
+            qDebug() << "[DEBUG] isOccupied:" << neighbor->cellptr.isOccupied;
+            qDebug() << "[DEBUG] FCost:" << neighbor->FCost;
+
             //Se o vizinho for bloqueado,
             //ou se o vizinho esta na lista fechada, ignora
             //comando : find -> parametros : (comeco,fim,procuro)
@@ -103,11 +118,13 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
             //Calcula custo de movimento do no atual em relacao ao vizinho
             int neighborCost = movementCost(actual, neighbor);
+            qDebug() << "[DEBUG] SAIU movementCost. Movement Cost = " << neighborCost;
 
             //Se vizinho do no atual ja estiver na lista aberta, verificar se o caminho pode ser encurtado se usarmos
             //o no atual como pai
             if(std::find(openList.begin(), openList.end(), neighbor) != openList.end())
             {
+                qDebug() << "[DEBUG] Nó já está na lista aberta.";
                 int betterGCost = actual->GCost + neighborCost;
 
                 if(betterGCost < neighbor->GCost)
@@ -120,6 +137,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
             }
             else
             {
+                qDebug() << "[DEBUG] Vizinho não estava na lista aberta. Define-se ele e o insere na openList";
                 //Se o vizinho nao esta na lista aberta, insere ele
                 //depois de calcular seus custos e apontar seu pai
                 neighbor->parent = actual;
@@ -127,8 +145,8 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
                 neighbor->HCost = calculateHCost(neighbor, end);
                 neighbor->FCost = neighbor->HCost + neighbor->GCost;
                 openList.push_back(neighbor);
-
             }
+            f2++;
         }
         n++;
     }
@@ -138,6 +156,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
 int AStar::movementCost(Node *actual, Node *neighbor)
 {
+    qDebug() << "[DEBUG] Calculando movementCost.";
     int movementCost = 0;
     //Diagonal
     if(actual->cellptr.x != neighbor->cellptr.x && actual->cellptr.y != neighbor->cellptr.y)
@@ -176,6 +195,8 @@ int AStar::calculateHCost(Node *actual, Node *final)
 
 void AStar::defineNeighbors(Node *actual)
 {
+
+    qDebug() << "[DEBUG]Definindo os vizinhos.";
     /*
      * Gerar 8 vizinhos do nó visitado (i, j)
      * N -> (i-1, j)
@@ -187,8 +208,7 @@ void AStar::defineNeighbors(Node *actual)
      * SE -> (i+1, j+1)
      * SO -> (i+1, j-1)
      */
-    qDebug() << "[DEBUG]Definindo os vizinhos.";
-    Node *neighbor;
+    Node *neighbor = new Node();
 
     int d = 0; //Debug
 
@@ -203,20 +223,27 @@ void AStar::defineNeighbors(Node *actual)
     {
         for(col = initX; col <= endX; col++)
         {
+            d++;
             qDebug() << "[DEBUG]Entrou no FOR do defineNeighbors.";
-            if(row != actual->cellptr.y && col != actual->cellptr.x)
+            if((row == actual->cellptr.y) && (col == actual->cellptr.x))
             {
-                qDebug() << "[DEBUG]Entrou no IF do defineNeighbors.";
-                //Definir neighbor
+                continue;
+            }
+            else
+            {
+            //qDebug() << "[DEBUG]Entrou no IF do defineNeighbors.";
+            //Definir neighbor
                 neighbor->cellptr.x = col;
                 neighbor->cellptr.y = row;
-                neighbor->FCost = neighbor->GCost = 0;
-                qDebug() << "[DEBUG]Chamando addNeighbor.";
-                actual->addNeighbor(neighbor);
+                neighbor->parent = nullptr;
+                neighbor->FCost = neighbor->GCost = neighbor->HCost = 0;
+                qDebug() << "[DEBUG]Inserindo neighbor -> " << actual->neighborCount;
+                actual->neighbors.push_back(neighbor);
+                actual->neighborCount++; //TODO : Verificar se contagem está OK.
+                //actual->addNeighbor(neighbor);
+
             }
-            d++;
         }
     }
     qDebug() << "[DEBUG]Iteraçoes do FOR  = " << d;
-
 }
