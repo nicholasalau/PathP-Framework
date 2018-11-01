@@ -17,16 +17,6 @@ class Node
         std::vector<Node*> neighbors;
         Map *map;
         Cell cellptr;
-//        inline void addNeighbor(Node *n)
-//        {
-//            qDebug() << "[DEBUG]Funçao addNeighbor.";
-//            qDebug() << "[DEBUG]Neighbor infos: " << n->cellptr.x << n->cellptr.y;
-//            Node **ptr = neighbors + neighborCount;
-//            //qDebug() << "[DEBUG]Vizinho: " << *neighbors[neighborCount];
-//            neighborCount++;
-//            *ptr = n;
-//            neighbors.push_back(n);
-//        }
 };
 
 

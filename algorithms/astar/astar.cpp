@@ -103,10 +103,10 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
             //Node *neighbor = new Node();
             Node *neighbor = actual->neighbors[i];
 
-            qDebug() << "[DEBUG] Verificando primeiro vizinho a ser analisado:" << i;
-            qDebug() << "[DEBUG] x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
-            qDebug() << "[DEBUG] isOccupied:" << neighbor->cellptr.isOccupied;
-            qDebug() << "[DEBUG] FCost:" << neighbor->FCost;
+            qDebug() << "[DEBUG] Verificando vizinho a ser analisado:" << i;
+            qDebug() << "x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
+            qDebug() << "isOccupied:" << neighbor->cellptr.isOccupied;
+            qDebug() << "FCost:" << neighbor->FCost;
 
             //Se o vizinho for bloqueado,
             //ou se o vizinho esta na lista fechada, ignora
@@ -240,8 +240,6 @@ void AStar::defineNeighbors(Node *actual)
                 qDebug() << "[DEBUG]Inserindo neighbor -> " << actual->neighborCount;
                 actual->neighbors.push_back(neighbor);
                 actual->neighborCount++; //TODO : Verificar se contagem está OK.
-                //actual->addNeighbor(neighbor);
-
             }
         }
     }
