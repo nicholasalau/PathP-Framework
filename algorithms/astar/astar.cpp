@@ -47,7 +47,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
     while(path.status == Path::UNPROCCESSED)
     {
-        qDebug() << "[LOOOOOOOOOP "<< n << "]" << "Número iterações do while: " << n;
+        qDebug() << "**********LOOP "<< n << "**********" << "(número iterações do while: " << n << ")";
 
         //Procura path
         if(openList.size() == 0)
@@ -66,14 +66,16 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
         qDebug() << "[DEBUG]Teste reordenamento: ";
         //Ordenando a lista em ordem crescente, logo primeiro valor eh o com menor custo F
-        Node *actual = openList[0];
-        Node *scnd = new Node();
-        qDebug() << "Coordenadas do PRIMEIRO nodo da openList e seu custo F: X[" << actual->cellptr.x << "] Y[" << actual->cellptr.y << "] Custo F = " << actual->FCost;
-        if(openList[1])
-        {
-            scnd = openList[1];
-            qDebug() << "Verificando custo F do SEGUNDO nodo da lista: ";
-        }
+        Node *actual = new Node();
+        actual = openList[0];
+
+        Node *scnd = new Node(); //Debug
+        qDebug() << "Coordenadas do PRIMEIRO nodo da openList e seu custo F: X[" << actual->cellptr.x << "] Y[" << actual->cellptr.y << "] Custo F = " << actual->FCost; //Debug
+        if(openList[1]) //Debug
+        { //Debug
+            scnd = openList[1]; //Debug
+            qDebug() << "Verificando custo F do SEGUNDO nodo da lista: "; //Debug
+        } //Debug
 
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
         {
@@ -215,9 +217,9 @@ void AStar::defineNeighbors(Node *actual)
     int initX = 0, initY = 0, endX = 0, endY = 0, row = 0, col = 0;
     //Define variaveis para varrer todos vizinhos de um nodo
     initX = ((actual->cellptr.x - 1) < MIN_X) ? actual->cellptr.x : actual->cellptr.x - 1;
-    endX = ((actual->cellptr.x + 1) < MAX_X) ? actual->cellptr.x : actual->cellptr.x - 1;
+    endX = ((actual->cellptr.x + 1) < MAX_X) ? actual->cellptr.x : actual->cellptr.x + 1;
     initY = ((actual->cellptr.y - 1) < MIN_Y) ? actual->cellptr.y : actual->cellptr.y - 1;
-    endY = ((actual->cellptr.y + 1) < MAX_Y) ? actual->cellptr.y : actual->cellptr.y - 1;
+    endY = ((actual->cellptr.y + 1) < MAX_Y) ? actual->cellptr.y : actual->cellptr.y + 1;
 
     for(row = initY; row <= endY; row++)
     {
