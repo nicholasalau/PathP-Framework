@@ -34,7 +34,7 @@ void RenderArea::drawInitPos(QPainter &painter)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::black);
     painter.setBrush(QBrush(Qt::blue));
-    painter.drawEllipse(START_POS_X, START_POS_Y, 8.0, 8.0);
+    painter.drawEllipse(START_POS_X, START_POS_Y, 5.0, 5.0);
     painter.restore();
 
 }
@@ -45,7 +45,7 @@ void RenderArea::drawEndPos(QPainter &painter)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::black);
     painter.setBrush(QBrush(Qt::red));
-    painter.drawEllipse(END_POS_X, END_POS_Y, 8.0, 8.0);
+    painter.drawEllipse(END_POS_X, END_POS_Y, 5.0, 5.0);
     painter.restore();
 
 }

@@ -50,7 +50,7 @@ void Map::setMap()
         aux_pos_y1 = aux_pos_y1 + 4;
         obj_count--;
     }
-    //printMatrix();
+    printMatrix();
     //qDebug() << "pixelRepresentation" << pixelRepresentation;
 }
 

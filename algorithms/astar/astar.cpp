@@ -86,9 +86,11 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
         //Remove no(actual) com menor custo F da lista aberta
         openList.erase(openList.begin());
+        qDebug() << "[DEBUG]Verifica removeu openList: " << openList.size();
 
         //Add no actual na lista fechada
         closedList.push_back(actual);
+        qDebug() << "[DEBUG]Verifica add closedList: " << closedList.size();
 
         //Definir os nós vizinhos
         defineNeighbors(actual);
@@ -100,12 +102,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
         for(i = 0; i < actual->neighborCount; i++)
         {
-            qDebug() << "[DEBUG] Percorrendo os vizinhos do nodo. Número de iterações:" << f2;
+            qDebug() << "[DEBUG]Percorrendo os vizinhos do nodo. Número de iterações:" << f2;
 
             //Node *neighbor = new Node();
             Node *neighbor = actual->neighbors[i];
 
-            qDebug() << "[DEBUG] Verificando vizinho a ser analisado:" << i;
+            qDebug() << "[DEBUG]Verificando vizinho a ser analisado:" << i;
             qDebug() << "x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
             qDebug() << "isOccupied:" << neighbor->cellptr.isOccupied;
             qDebug() << "FCost:" << neighbor->FCost;
@@ -120,7 +122,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
             //Calcula custo de movimento do no atual em relacao ao vizinho
             int neighborCost = movementCost(actual, neighbor);
-            qDebug() << "[DEBUG] SAIU movementCost. Movement Cost = " << neighborCost;
+            qDebug() << "[DEBUG] Saiu movementCost. Movement Cost = " << neighborCost;
 
             //Se vizinho do no atual ja estiver na lista aberta, verificar se o caminho pode ser encurtado se usarmos
             //o no atual como pai
@@ -210,40 +212,42 @@ void AStar::defineNeighbors(Node *actual)
      * SE -> (i+1, j+1)
      * SO -> (i+1, j-1)
      */
-    Node *neighbor = new Node();
+    Node *n = new Node();
 
-    int d = 0; //Debug
+    int d = 0; //Debug.
+    int nc = 0;
 
     int initX = 0, initY = 0, endX = 0, endY = 0, row = 0, col = 0;
     //Define variaveis para varrer todos vizinhos de um nodo
     initX = ((actual->cellptr.x - 1) < MIN_X) ? actual->cellptr.x : actual->cellptr.x - 1;
-    endX = ((actual->cellptr.x + 1) < MAX_X) ? actual->cellptr.x : actual->cellptr.x + 1;
+    endX = ((actual->cellptr.x + 1) > MAX_X) ? actual->cellptr.x : actual->cellptr.x + 1;
     initY = ((actual->cellptr.y - 1) < MIN_Y) ? actual->cellptr.y : actual->cellptr.y - 1;
-    endY = ((actual->cellptr.y + 1) < MAX_Y) ? actual->cellptr.y : actual->cellptr.y + 1;
+    endY = ((actual->cellptr.y + 1) > MAX_Y) ? actual->cellptr.y : actual->cellptr.y + 1;
+    qDebug() << "[DEBUG]Verificando limites vizinho:" << "initX:" << initX << "endX:" << endX << "initY" << initY << "endY" << endY;
 
     for(row = initY; row <= endY; row++)
     {
         for(col = initX; col <= endX; col++)
         {
             d++;
-            qDebug() << "[DEBUG]Entrou no FOR do defineNeighbors.";
+            //qDebug() << "[DEBUG]Entrou no FOR do defineNeighbors.";
             if((row == actual->cellptr.y) && (col == actual->cellptr.x))
             {
                 continue;
             }
             else
             {
-            //qDebug() << "[DEBUG]Entrou no IF do defineNeighbors.";
             //Definir neighbor
-                neighbor->cellptr.x = col;
-                neighbor->cellptr.y = row;
-                neighbor->parent = nullptr;
-                neighbor->FCost = neighbor->GCost = neighbor->HCost = 0;
-                qDebug() << "[DEBUG]Inserindo neighbor -> " << actual->neighborCount;
-                actual->neighbors.push_back(neighbor);
+                n->cellptr.x = col;
+                n->cellptr.y = row;
+                n->parent = nullptr;
+                n->FCost = n->GCost = n->HCost = 0;
+                qDebug() << "Inserindo neighbor -> " << "X:" << n->cellptr.x << "Y:" << n->cellptr.y << "(" << actual->neighborCount << ")";
+                actual->neighbors.push_back(n);
+                nc = actual->neighborCount; //Debug
+                qDebug() << "Testando se inseriu o vizinho ok -> " << "X:" << actual->neighbors[nc]->cellptr.x << "Y:" << actual->neighbors[nc]->cellptr.y;
                 actual->neighborCount++; //TODO : Verificar se contagem está OK.
             }
         }
     }
-    qDebug() << "[DEBUG]Iteraçoes do FOR  = " << d;
 }
