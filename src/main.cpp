@@ -10,14 +10,14 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Map map;
     map.setPixelRepresentation(1);
-    map.setMap();        //TODO : Verificar final obstaculo na coordenada final de mapa.
+    map.setMap();
     qDebug() << "Saiu setMap.";
     AStar astar;
     Path path;          // TODO: Criar "algorithmInit(&map)" para inicializar os algoritmos escolhidos
     Node start;
     Node end;
     path = astar.findPath(&start, &end, &map);  //TODO : Verificar chamando sempre vizinho igual no loop da leitura de vizinhos ja definidos.
-    switch(path.status)
+    switch(path.status)                         //TODO : Cell cellptr tem que apontar para mapMatrix!
     {
         case Path::FOUND : qDebug() << "FOUND"; break;
         case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;

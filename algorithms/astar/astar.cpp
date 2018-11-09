@@ -60,7 +60,6 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         //Ordena lista aberta pelo menor FCost
         std::sort(openList.begin(), openList.end(), [](Node *a, Node *b)
         {
-            qDebug() << "[DEBUG]Reordenou.";
             return a->FCost < b->FCost;
         });
 
@@ -74,7 +73,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         if(openList[1]) //Debug
         { //Debug
             scnd = openList[1]; //Debug
-            qDebug() << "Verificando custo F do SEGUNDO nodo da lista: "; //Debug
+            qDebug() << "Coordenads e custo F do SEGUNDO nodo da openList: X[" << scnd->cellptr.x << "]" << "Y[" << scnd->cellptr.y << "] Custo F" << scnd->FCost; //Debug
         } //Debug
 
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
@@ -87,6 +86,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         //Remove no(actual) com menor custo F da lista aberta
         openList.erase(openList.begin());
         qDebug() << "[DEBUG]Verifica removeu openList: " << openList.size();
+        qDebug() << openList[0]->FCost;
 
         //Add no actual na lista fechada
         closedList.push_back(actual);
@@ -104,10 +104,10 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         {
             qDebug() << "[DEBUG]Percorrendo os vizinhos do nodo. Número de iterações:" << f2;
 
-            //Node *neighbor = new Node();
-            Node *neighbor = actual->neighbors[i];
+            Node *neighbor = new Node();
+            neighbor = actual->neighbors[i];
 
-            qDebug() << "[DEBUG]Verificando vizinho a ser analisado:" << i;
+            qDebug() << "Vizinho a ser analisado:" << i;
             qDebug() << "x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
             qDebug() << "isOccupied:" << neighbor->cellptr.isOccupied;
             qDebug() << "FCost:" << neighbor->FCost;
@@ -122,13 +122,13 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
             //Calcula custo de movimento do no atual em relacao ao vizinho
             int neighborCost = movementCost(actual, neighbor);
-            qDebug() << "[DEBUG] Saiu movementCost. Movement Cost = " << neighborCost;
+            qDebug() << "Movement Cost = " << neighborCost;
 
             //Se vizinho do no atual ja estiver na lista aberta, verificar se o caminho pode ser encurtado se usarmos
             //o no atual como pai
             if(std::find(openList.begin(), openList.end(), neighbor) != openList.end())
             {
-                qDebug() << "[DEBUG] Nó já está na lista aberta.";
+                qDebug() << "Nó já está na lista aberta!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.";
                 int betterGCost = actual->GCost + neighborCost;
 
                 if(betterGCost < neighbor->GCost)
@@ -137,30 +137,31 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
                     neighbor->GCost = betterGCost;
                     neighbor->FCost = neighbor->HCost + neighbor->GCost;
                 }
-
             }
             else
             {
-                qDebug() << "[DEBUG] Vizinho não estava na lista aberta. Define-se ele e o insere na openList";
+                qDebug() << "NAO estava na lista aberta. Define-se ele e o insere na openList";
                 //Se o vizinho nao esta na lista aberta, insere ele
                 //depois de calcular seus custos e apontar seu pai
+                qDebug() << "--Definindo neighbor--";
                 neighbor->parent = actual;
                 neighbor->GCost = actual->GCost + neighborCost;
                 neighbor->HCost = calculateHCost(neighbor, end);
                 neighbor->FCost = neighbor->HCost + neighbor->GCost;
-                openList.push_back(neighbor);
+                qDebug() << "FCost:" << neighbor->FCost;
+                qDebug() << "GCost:" << neighbor->GCost;
+                qDebug() << "HCost:" << neighbor->HCost;
+                openList.push_back(neighbor);         
             }
             f2++;
         }
-        n++;
+        n++; //Debug while
     }
-
     return path;
 }
 
 int AStar::movementCost(Node *actual, Node *neighbor)
 {
-    qDebug() << "[DEBUG] Calculando movementCost.";
     int movementCost = 0;
     //Diagonal
     if(actual->cellptr.x != neighbor->cellptr.x && actual->cellptr.y != neighbor->cellptr.y)
@@ -212,8 +213,6 @@ void AStar::defineNeighbors(Node *actual)
      * SE -> (i+1, j+1)
      * SO -> (i+1, j-1)
      */
-    Node *n = new Node();
-
     int d = 0; //Debug.
     int nc = 0;
 
@@ -238,15 +237,17 @@ void AStar::defineNeighbors(Node *actual)
             else
             {
             //Definir neighbor
+                Node *n = new Node();
                 n->cellptr.x = col;
                 n->cellptr.y = row;
                 n->parent = nullptr;
                 n->FCost = n->GCost = n->HCost = 0;
+                nc = actual->neighborCount; //Debug
                 qDebug() << "Inserindo neighbor -> " << "X:" << n->cellptr.x << "Y:" << n->cellptr.y << "(" << actual->neighborCount << ")";
                 actual->neighbors.push_back(n);
-                nc = actual->neighborCount; //Debug
                 qDebug() << "Testando se inseriu o vizinho ok -> " << "X:" << actual->neighbors[nc]->cellptr.x << "Y:" << actual->neighbors[nc]->cellptr.y;
-                actual->neighborCount++; //TODO : Verificar se contagem está OK.
+                qDebug() << "Neighbors[" << nc << "]:" << actual->neighbors[nc]->cellptr.x << actual->neighbors[nc]->cellptr.y;
+                actual->neighborCount++;
             }
         }
     }

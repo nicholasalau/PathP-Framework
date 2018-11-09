@@ -13,7 +13,6 @@ class Node
         int neighborCount = 0;
         int GCost = 0, HCost = 0, FCost = 0;
         Node *parent = nullptr;
-        //Node *neighbors[MAX_NEIGHBORS] = {};
         std::vector<Node*> neighbors;
         Map *map;
         Cell cellptr;
