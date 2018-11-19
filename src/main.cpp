@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     qDebug() << "Saiu setMap.";
     AStar astar;
     Path path;          // TODO: Criar "algorithmInit(&map)" para inicializar os algoritmos escolhidos
-    Node start;
+    Node start;         // TODO : Modularizar para receber algoritmos.
     Node end;
     path = astar.findPath(&start, &end, &map);  //TODO : Verificar chamando sempre vizinho igual no loop da leitura de vizinhos ja definidos.
     switch(path.status)                         //TODO : Cell cellptr tem que apontar para mapMatrix!
