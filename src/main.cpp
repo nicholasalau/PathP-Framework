@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     path = astar.findPath(&start, &end, &map);  //TODO : Verificar chamando sempre vizinho igual no loop da leitura de vizinhos ja definidos.
     switch(path.status)                         //TODO : Cell cellptr tem que apontar para mapMatrix!
                                                 //TODO : Ver constructor!
+                                                //TODO : Ver defineCells (map)
     {
         case Path::FOUND : qDebug() << "FOUND"; break;
         case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;

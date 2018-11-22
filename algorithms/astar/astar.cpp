@@ -25,6 +25,7 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     start->HCost = calculateHCost(start, end);
     start->parent = nullptr;
     start->cellptr = map->begin;
+    //start->cellptr = map->mapMatrix[][];
 
     //qDebug() << "end.x = " << end->cellptr.x;
     //qDebug() << "end.y = " << end->cellptr.y;
@@ -148,6 +149,9 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
                 neighbor->GCost = actual->GCost + neighborCost;
                 neighbor->HCost = calculateHCost(neighbor, end);
                 neighbor->FCost = neighbor->HCost + neighbor->GCost;
+                //n->cellptr = map->mapMatrix[col][row];
+                //n->cellptr.x = map->mapMatrix[col][row].x;
+                //n->cellptr.y = map->mapMatrix[col][row].y;
                 qDebug() << "FCost:" << neighbor->FCost;
                 qDebug() << "GCost:" << neighbor->GCost;
                 qDebug() << "HCost:" << neighbor->HCost;
@@ -237,9 +241,9 @@ void AStar::defineNeighbors(Node *actual)
             else
             {
             //Definir neighbor
-                Node *n = new Node();
-                n->cellptr.x = col;
-                n->cellptr.y = row;
+                Node *n = new Node();   //n->cellptr = map->mapMatrix[col][row];
+                n->cellptr.x = col;     //n->cellptr.x = map->mapMatrix[col][row].x;
+                n->cellptr.y = row;     //n->cellptr.y = map->mapMatrix[col][row].y;
                 n->parent = nullptr;
                 n->FCost = n->GCost = n->HCost = 0;
                 nc = actual->neighborCount; //Debug
