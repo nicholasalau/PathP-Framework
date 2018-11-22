@@ -43,6 +43,8 @@ void Map::setMap()
             for(j = 0; j <= diff_x; j++)
             {
                 mapMatrix[matrix_x+j][matrix_y+i].isOccupied = 1.0;
+                mapMatrix[matrix_x+j][matrix_y+i].x = matrix_x+j;
+                mapMatrix[matrix_x+j][matrix_y+i].y = matrix_y+i;
                 //qDebug() << "mapMatrix["<< matrix_x+j << "]" << "[" << matrix_y+i << "]";
             }
         }

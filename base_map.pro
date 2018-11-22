@@ -8,8 +8,10 @@ QT       += core gui
 CONFIG += console
 QMAKE_CXXFLAGS += -std=c++0x
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+greaterThan(QT_MAJOR_VERSION, 4)
+{
+    QT += widgets
+}
 TARGET = base_map
 TEMPLATE = app
 
@@ -18,7 +20,8 @@ SOURCES += src/main.cpp\
         src/mainwindow.cpp \
     src/renderarea.cpp \
     src/map.cpp \
-    algorithms/astar/astar.cpp
+    algorithms/astar/astar.cpp \
+    algorithms/astar/node.cpp
 
 HEADERS  += src/mainwindow.h \
     src/renderarea.h \

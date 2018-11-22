@@ -25,7 +25,6 @@ class AStar
         int movementCost(Node *actual, Node *neighbor);
         void initAStar(Path *path, Node *start, Node *end, Map *map);
         Path findPath(Node *start, Node *end, Map *map);
-        //bool sortByFCost(const Node &a, const Node &b);
         std::vector<Node*> openList;
         std::vector<Node*> closedList;
 };

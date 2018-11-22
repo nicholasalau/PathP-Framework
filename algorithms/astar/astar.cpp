@@ -1,4 +1,4 @@
-﻿#include "astar.h"
+﻿#include "algorithms/astar/astar.h"
 #include "src/map.h"
 
 AStar::AStar()
@@ -18,18 +18,18 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     closedList.clear(); //Nodos ja analisados
 
     //Inicializa o nó end
-    //end->cellptr = map->end;
+    end->cellptr = map->end;
 
     //Inicializa o nó start
     start->FCost = start->GCost = 0;
     start->HCost = calculateHCost(start, end);
     start->parent = nullptr;
-    //start->cellptr = map->begin;
+    start->cellptr = map->begin;
 
     //qDebug() << "end.x = " << end->cellptr.x;
     //qDebug() << "end.y = " << end->cellptr.y;
 
-    qDebug() << "Map chegou:";
+    //qDebug() << "Map chegou:";
     //qDebug() << map->pixelRepresentation;
 
 
