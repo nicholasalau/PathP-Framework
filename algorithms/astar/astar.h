@@ -20,11 +20,12 @@ class AStar
 {
     public:
         AStar();
-        void defineNeighbors(Node *actual);
+        void defineNeighbors(Node *actual, Map *map);
         int calculateHCost(Node *actual, Node *final);
         int movementCost(Node *actual, Node *neighbor);
         void initAStar(Path *path, Node *start, Node *end, Map *map);
         Path findPath(Node *start, Node *end, Map *map);
+        int findNode(std::vector<Node*> list, Node *nodeToFind);
         std::vector<Node*> openList;
         std::vector<Node*> closedList;
 };

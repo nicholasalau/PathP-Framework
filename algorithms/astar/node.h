@@ -21,7 +21,7 @@ class Node
 
 inline Node::Node()
 {
-    qDebug() << "default constructor.";
+    //qDebug() << "default constructor.";
     //qDebug() << map->pixelRepresentation;
 }
 

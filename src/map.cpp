@@ -125,10 +125,8 @@ void Map::setPixelRepresentation(int pr)
     pixelRepresentation = pr;
 }
 
-void Map::defineCells(Cell *begin, Cell *end/*, Map *map*/)
+void Map::defineCells(Cell *begin, Cell *end)
 {
-    //begin = map->mapMatrix[START_POS_X][START_POS_Y];
-    //end = map->mapMatrix[END_POS_X][END_POS_Y];
     begin->x = START_POS_X;
     begin->y = START_POS_Y;
     end->x = END_POS_X;
