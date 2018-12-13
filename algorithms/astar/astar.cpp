@@ -49,6 +49,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
     Path path;
 
     int n = 0; //Debug
+    int flagFound = 0;
 
     initAStar(&path, start, end, map);
 
@@ -126,9 +127,11 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
             //Se o vizinho for bloqueado,
             //ou se o vizinho esta na lista fechada, ignora
             //comando : find -> parametros : (comeco,fim,procuro)
-            if((neighbor->cellptr.isOccupied == 1.00) || std::find(closedList.begin(), closedList.end(), neighbor) != closedList.end())
+            qDebug() << "Nodo sendo mandado findNode. Posição: " << neighbor->cellptr.x << neighbor->cellptr.y;
+            //flagFound = findNode(closedList, neighbor);
+            if((neighbor->cellptr.isOccupied == 1.00) || findNode(closedList, neighbor) == 1)
             {
-                qDebug() << "É bloqueado ou está na lista fechada! Ignora vizinho!"; // TODO : FIX FIND
+                qDebug() << "É bloqueado ou está na lista fechada! Ignora vizinho!";
                 continue;
             }
 
@@ -284,13 +287,26 @@ int AStar::findNode(std::vector<Node*> list, Node *nodeToFind)
     int size = list.size();
     int found = 0;
 
-    for(i = 0; i<=size; i++)
+    qDebug() << "Verificando função FINDNODE";
+    qDebug() << "Size:" << size;
+    qDebug() << "--------------";
+    qDebug() << "Verificando nodo procurado";
+    qDebug() << "Posição: " << nodeToFind->cellptr.x << nodeToFind->cellptr.y;
+    qDebug() << "--------------";
+
+    for(i = 0; i<size; i++)
     {
+        qDebug() << "Nodo procurado: X[" << nodeToFind->cellptr.x << "] Y[" << nodeToFind->cellptr.y << "]";
+        qDebug() << "Nodo da lista: X[" << list[i]->cellptr.x << "] Y[" << list[i]->cellptr.y << "]";
         if(list[i]->cellptr.x == nodeToFind->cellptr.x && list[i]->cellptr.y == nodeToFind->cellptr.y)
         {
+            qDebug() << "Achou nodo!";
             found = 1;
+            return found;
+        }else
+        {
+            found = 0;
         }
-        found = 0;
     }
     return found;
 }
