@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
     //qDebug() << "DAS"; // TODO : Modularizar para receber algoritmos.
     Node end;
     path = astar.findPath(&start, &end, &map);  //TODO : Verificar chamando sempre vizinho igual no loop da leitura de vizinhos ja definidos.
-    switch(path.status)                         //TODO : Cell cellptr tem que apontar para mapMatrix!
+    switch(path.status)                         //TODO : Cell cellptr tem que apontar para mapMatrix
+                                                //TODO : Ao inserir vizinho que ja esta na openlist, atualiza-lo com os valores do nodo da openlist.
     {
         case Path::FOUND : qDebug() << "FOUND"; break;
         case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;
