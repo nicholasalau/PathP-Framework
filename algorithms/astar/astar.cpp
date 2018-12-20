@@ -55,7 +55,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
     openList.push_back(start);
 
-    while(n < 10)
+    while(n < 9)
     {
         qDebug() << "**********LOOP "<< n << "**********" << "(número iterações do while: " << n << ")";
 
@@ -128,7 +128,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
             //ou se o vizinho esta na lista fechada, ignora
             //comando : find -> parametros : (comeco,fim,procuro)
             qDebug() << "Nodo sendo mandado findNode. Posição: " << neighbor->cellptr.x << neighbor->cellptr.y;
-            //flagFound = findNode(closedList, neighbor);
+
             if((neighbor->cellptr.isOccupied == 1.00) || findNode(closedList, neighbor) == 1)
             {
                 qDebug() << "É bloqueado ou está na lista fechada! Ignora vizinho!";
@@ -259,8 +259,10 @@ void AStar::defineNeighbors(Node *actual, Map *map)
         {
             d++;
             //qDebug() << "[DEBUG]Entrou no FOR do defineNeighbors.";
-            if((row == actual->cellptr.y) && (col == actual->cellptr.x))
+            if((row == actual->cellptr.y) && (col == actual->cellptr.x)) //|| (findNode(closedList, actual) == 1))
             {
+                //Caso nodo seja ele mesmo ou algum nodo já inserido na lista fechada, não inserí-lo novamente!
+                qDebug() << "É o próprio nodo ou nodo já inserido na lista fechada!";
                 continue;
             }
             else
@@ -271,7 +273,11 @@ void AStar::defineNeighbors(Node *actual, Map *map)
                                                            //n->cellptr.y = map->mapMatrix[col][row].y;
                 if(findNode(openList, n) == 1)
                 {
-                    qDebug() << "Nodo ja existe! Logo ja possui custo F calculado.";
+                    qDebug() << "Nodo ja existe (lista aberta)! Logo ja possui seus custos calculados.";
+                } else if (findNode(closedList, n) == 1)
+                {
+                    qDebug() << "Nodo está na lista fechada, logo não inserí-lo novamente.";
+                    continue;
                 }
                 n->parent = nullptr;
                 n->FCost = n->GCost = n->HCost = 0;
