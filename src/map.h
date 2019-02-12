@@ -27,13 +27,12 @@ class Map
         std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f> > obstacles;
         Cell mapMatrix[WORLD_HEIGHT][WORLD_WIDTH];
         int pixelRepresentation;   /*(i.e. 1 cell = 3x3 square pixel, instead of 1 cell = 1 pixel)*/
-        //https://www.tutorialspoint.com/cplusplus/cpp_constructor_destructor.html
         Cell begin;
         Cell end;
 
     private:
         /*Ler arquivo*/
-        const char * filename = "/home/phi/PathP-Framework/maps";
+        const char * filename = "/home/nicholas/PathP-Framework/maps";
         QFile file;
         QTextStream stream;
         QString line;
