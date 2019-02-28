@@ -14,6 +14,7 @@ struct Path
     Node *end;
     enum Status {UNPROCCESSED, FOUND, IMPOSSIBLE};
     Status status;
+    std::vector<Node*> foundedPath;
 };
 
 class AStar

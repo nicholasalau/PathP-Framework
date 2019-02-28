@@ -19,6 +19,7 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     //Inicializa listas
     openList.clear();   //Nodos a serem analisados
     closedList.clear(); //Nodos ja analisados
+    path->foundedPath.clear();
 
     //Inicializa o nó end
     end->cellptr = map->mapMatrix[map->end.x][map->end.y];
@@ -83,6 +84,13 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
         {
             path.status = Path::FOUND;
+            //TODO : Preencher vector path.foundedPath
+            while(actual != start)
+            {
+                path.foundedPath.push_back(actual);
+                actual = actual->parent;
+            }
+            path.foundedPath.push_back(actual);    //Inserir junto o start.
             break;
         }
 

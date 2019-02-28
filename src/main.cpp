@@ -25,6 +25,11 @@ int main(int argc, char *argv[])
         case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;
         case Path::IMPOSSIBLE : qDebug() << "IMPOSSIBLE"; break;
     }
+//    int i = 0;
+//    for(i = 0; i <= path.foundedPath.size(); i++)
+//    {
+//        qDebug() << path.foundedPath[i]->cellptr.x << path.foundedPath[i]->cellptr.y;
+//    }
     MainWindow w(&map);  //TODO : Printar trajeto AStar.
     w.show();
 
