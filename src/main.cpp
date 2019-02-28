@@ -11,14 +11,14 @@ int main(int argc, char *argv[])
     Map map;
     map.setPixelRepresentation(1);
     map.setMap();
-    //qDebug() << "[MAIN]Saiu set map.";
+
     AStar astar;
     Path path;          // TODO: Criar "algorithmInit(&map)" para inicializar os algoritmos escolhidos
     Node start;
     Node end;
-    //qDebug() << "[MAIN]Vai chamar A*.";
-    path = astar.findPath(&start, &end, &map);      // TODO : Verificar loop infinito while A*.
-                                                    // TODO : Veirificar nodo na openList apos att o GCost passando por outro vizinho.
+
+    path = astar.findPath(&start, &end, &map);
+
     switch(path.status)
     {
         case Path::FOUND : qDebug() << "FOUND"; break;
@@ -30,6 +30,6 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
 //TODO : Inserir RRT.
-//TODO : Printar trajetos.
 //TODO : Verificar comparacoes a serem realizadas.
