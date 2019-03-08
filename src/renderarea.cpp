@@ -1,4 +1,5 @@
 #include "renderarea.h"
+#include "algorithms/astar/astar.h"
 
 RenderArea::RenderArea(QWidget *parent) : QWidget(parent)
 {
@@ -12,6 +13,8 @@ void RenderArea::paintEvent(QPaintEvent *)
     drawInitPos(painter);
     drawEndPos(painter);
     drawMap(painter);
+    drawPaths(painter);
+    //Add funcoes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     emit painting();
 }
 
@@ -86,6 +89,22 @@ void RenderArea::drawMap(QPainter &painter)
         }
         flagFirst = 1;
         y = i + displacement;
+    }
+    painter.restore();
+}
+
+void RenderArea::drawPaths(QPainter &painter)
+{
+    painter.save();
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::black);
+    painter.setBrush(QBrush(Qt::yellow));
+
+    int i = 0;
+
+    for(i = 0; i < path->foundedPath.size(); i++)
+    {
+        painter.drawEllipse(path->foundedPath[i]->cellptr.x, path->foundedPath[i]->cellptr.y, 3.0, 3.0);
     }
     painter.restore();
 }

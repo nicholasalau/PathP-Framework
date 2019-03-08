@@ -12,8 +12,10 @@ int main(int argc, char *argv[])
     map.setPixelRepresentation(1);
     map.setMap();
 
+    //widget->resize(165, widget->height()); Utilizar para setar tamanho do mapa automaticamente sem precisar mudar mainwindow manualmente!
+
     AStar astar;
-    Path path;          // TODO: Criar "algorithmInit(&map)" para inicializar os algoritmos escolhidos
+    Path path;          // TODO: Criar "algorithmInit(&map)" para verificar e inicializar os algoritmos escolhidos
     Node start;
     Node end;
 
@@ -25,16 +27,20 @@ int main(int argc, char *argv[])
         case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;
         case Path::IMPOSSIBLE : qDebug() << "IMPOSSIBLE"; break;
     }
-//    int i = 0;
-//    for(i = 0; i <= path.foundedPath.size(); i++)
-//    {
-//        qDebug() << path.foundedPath[i]->cellptr.x << path.foundedPath[i]->cellptr.y;
-//    }
-    MainWindow w(&map);  //TODO : Printar trajeto AStar.
+
+//Teste trajetoria A* - [OK]
+    int i = 0;
+    qDebug() << path.foundedPath.size();
+    for(i = 0; i < path.foundedPath.size(); i++)
+    {
+        qDebug() << path.foundedPath[i]->cellptr.x << path.foundedPath[i]->cellptr.y;
+    }
+
+    MainWindow w(&map, &path); //TODO : Aumentar map.
     w.show();
 
     return a.exec();
 }
 
 //TODO : Inserir RRT.
-//TODO : Verificar comparacoes a serem realizadas.
+//TODO : Como comparar os algoritmos.

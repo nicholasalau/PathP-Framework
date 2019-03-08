@@ -323,7 +323,7 @@ Node* AStar::findNode(std::vector<Node*> list, Node *nodeToFind)
 {
     int i = 0;
     int size = list.size();
-    int found = 0;
+    //int found = 0;
 
 
     qDebug() << "---FINDNODE---";

@@ -1,6 +1,6 @@
 #include "map.h"
 
-Map::Map()//int pr)
+Map::Map()
 {
     pixelRepresentation = 0;
     initMapMatrix();

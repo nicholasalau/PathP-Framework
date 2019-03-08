@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Map *map, QWidget *parent = 0);
+    explicit MainWindow(Map *map, Path *path, QWidget *parent = 0);
     ~MainWindow();
 
 private:

@@ -4,12 +4,14 @@
 #include <QWidget>
 #include <QPainter>
 #include "map.h"
+#include "algorithms/astar/astar.h"
 
 class RenderArea : public QWidget
 {
     Q_OBJECT
 public:
     explicit RenderArea(QWidget *parent = 0);
+    Path *path;
     Map *map;
 
 protected:
@@ -18,6 +20,7 @@ protected:
     void drawInitPos(QPainter &event);
     void drawEndPos(QPainter &event);
     void drawMap(QPainter &event);
+    void drawPaths(QPainter &event);
 
 signals:
     void painting();
