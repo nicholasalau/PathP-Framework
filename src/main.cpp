@@ -8,18 +8,18 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Map map;
-    map.setPixelRepresentation(1);
-    map.setMap();
+    Map *map = new Map; // Ao realizar new no map foi possível utilizar map 100x100.
+    map->setPixelRepresentation(1);
+    map->setMap();
 
-    //widget->resize(165, widget->height()); Utilizar para setar tamanho do mapa automaticamente sem precisar mudar mainwindow manualmente!
+//    widget->resize(165, widget->height()); Utilizar para setar tamanho do mapa automaticamente sem precisar mudar mainwindow manualmente!
 
     AStar astar;
     Path path;          // TODO: Criar "algorithmInit(&map)" para verificar e inicializar os algoritmos escolhidos
     Node start;
     Node end;
 
-    path = astar.findPath(&start, &end, &map);
+    path = astar.findPath(&start, &end, *map);
 
     switch(path.status)
     {
@@ -36,11 +36,12 @@ int main(int argc, char *argv[])
         qDebug() << path.foundedPath[i]->cellptr.x << path.foundedPath[i]->cellptr.y;
     }
 
-    MainWindow w(&map, &path); //TODO : Aumentar map.
+    MainWindow w(map, &path);
     w.show();
 
     return a.exec();
+//    delete map;
 }
 
 //TODO : Inserir RRT.
-//TODO : Como comparar os algoritmos.
+//TODO : Comparar os algoritmos.

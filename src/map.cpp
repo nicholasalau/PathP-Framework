@@ -32,8 +32,8 @@ void Map::setMap()
         aux_pos_y2 = aux_pos_y1 + 2;
         diff_x = abs(coordinates.at(aux_pos_x1).toInt() - coordinates.at(aux_pos_x2).toInt());
         diff_y = abs(coordinates.at(aux_pos_y1).toInt() - coordinates.at(aux_pos_y2).toInt());
-        qDebug() << "DIFERENCA X = " << diff_x;
-        qDebug() << "DIFERENCA Y = " << diff_y;
+//        qDebug() << "DIFERENCA X = " << diff_x;
+//        qDebug() << "DIFERENCA Y = " << diff_y;
 
         matrix_x = coordinates.at(aux_pos_x1).toInt();
         matrix_y = coordinates.at(aux_pos_y1).toInt();

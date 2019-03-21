@@ -8,7 +8,7 @@ AStar::AStar()
 
 }
 
-void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
+void AStar::initAStar(Path *path, Node *start, Node *end, Map &map)
 {
     //qDebug() << "[A*]Entrou A*.";
     //Inicializa path
@@ -22,20 +22,20 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     path->foundedPath.clear();
 
     //Inicializa o nó end
-    end->cellptr = map->mapMatrix[map->end.x][map->end.y];
+    end->cellptr = map.mapMatrix[map.end.x][map.end.y];
     end->FCost = end->GCost = 0;
     end->HCost = calculateHCost(end, end);
     end->parent = nullptr;
 
     //Inicializa o nó start
-    start->cellptr = map->mapMatrix[map->begin.x][map->begin.y];
+    start->cellptr = map.mapMatrix[map.begin.x][map.begin.y];
     start->FCost = start->GCost = 0;
     start->HCost = calculateHCost(start, end);
     start->parent = nullptr;
 
 }
 
-Path AStar::findPath(Node *start, Node *end, Map *map)
+Path AStar::findPath(Node *start, Node *end, Map &map)
 {
     Path path;
 
@@ -65,7 +65,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 
         qDebug() << "[DEBUG]Teste reordenamento: ";
         //Ordenando a lista em ordem crescente, logo primeiro valor eh o com menor custo F
-        Node *actual = new Node();
+        Node *actual = new Node;
         actual = openList[0];
         qDebug() << "Infos sobre o primeiro nodo da lista a ser analisado:";
         qDebug() << "FCost:" << actual->FCost;
@@ -78,7 +78,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         if(openList[1]) //Debug
         { //Debug
             scnd = openList[1]; //Debug
-            qDebug() << "Coordenads e custo F do SEGUNDO nodo da openList: X[" << scnd->cellptr.x << "]" << "Y[" << scnd->cellptr.y << "] Custo F = " << scnd->FCost; //Debug
+            qDebug() << "Coordenadas e custo F do SEGUNDO nodo da openList: X[" << scnd->cellptr.x << "]" << "Y[" << scnd->cellptr.y << "] Custo F = " << scnd->FCost; //Debug
         } //Debug
 
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
@@ -103,7 +103,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         //  qDebug() << "[DEBUG]Verifica add closedList: " << closedList.size();
 
         //Definir os nós vizinhos
-        defineNeighbors(actual, map);
+        defineNeighbors(actual, &map);
         //qDebug() << "[DEBUG]Saiu defineNeigbors.";
 
         int f2 = 0; //Debug
@@ -153,18 +153,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
                 if(betterGCost < neighbor->GCost)
                 {
                     qDebug() << "Caminho pode ser encurtado! Atualiza pai,";
-//                    //Remover nodo antigo a ser att
-//                    ptrdiff_t pos = find(openList.begin(), openList.end(), neighbor) - openList.begin();
-//                    //qDebug() << "Posicao do nodo a ser removido na openList: " << pos;
-//                    qDebug() << "Verificando: " << openList[pos]->cellptr.x << openList[pos]->cellptr.y << openList[pos]->FCost;
-                    //Inserir nodo att
                     neighbor->parent = actual;
                     neighbor->GCost = betterGCost;
                     neighbor->FCost = neighbor->HCost + neighbor->GCost;
                     qDebug() << "custo F: " <<  neighbor->FCost;
                     qDebug() << "e custo G: " << neighbor->GCost;
                     qDebug() << "novo parente:" << neighbor->parent->cellptr.x << neighbor->parent->cellptr.y;
-                    //qDebug() << "Verifica se att openList:" << openList[pos]->cellptr.x << openList[pos]->cellptr.y << openList[pos]->FCost;
                 }
                 else
                 {
