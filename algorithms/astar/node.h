@@ -11,6 +11,7 @@ class Node
 {
     public:
         Node();
+        ~Node();
         int neighborCount = 0;
         int GCost = 0, HCost = 0, FCost = 0;
         Node *parent = nullptr;

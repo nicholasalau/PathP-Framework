@@ -97,7 +97,7 @@ void RenderArea::drawPaths(QPainter &painter)
 {
     painter.save();
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(Qt::black);
+    painter.setPen(Qt::yellow);
     painter.setBrush(QBrush(Qt::yellow));
 
     int i = 0;

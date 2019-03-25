@@ -8,7 +8,7 @@ AStar::AStar()
 
 }
 
-void AStar::initAStar(Path *path, Node *start, Node *end, Map &map)
+void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 {
     //qDebug() << "[A*]Entrou A*.";
     //Inicializa path
@@ -22,30 +22,30 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map &map)
     path->foundedPath.clear();
 
     //Inicializa o nó end
-    end->cellptr = map.mapMatrix[map.end.x][map.end.y];
+    end->cellptr = map->mapMatrix[map->end.x][map->end.y];
     end->FCost = end->GCost = 0;
     end->HCost = calculateHCost(end, end);
     end->parent = nullptr;
 
     //Inicializa o nó start
-    start->cellptr = map.mapMatrix[map.begin.x][map.begin.y];
+    start->cellptr = map->mapMatrix[map->begin.x][map->begin.y];
     start->FCost = start->GCost = 0;
     start->HCost = calculateHCost(start, end);
     start->parent = nullptr;
 
 }
 
-Path AStar::findPath(Node *start, Node *end, Map &map)
+Path AStar::findPath(Node *start, Node *end, Map *map)
 {
-    Path path;
+    Path *path = new Path; // TODO : usar new Path?
 
     int n = 0; //Debug
 
-    initAStar(&path, start, end, map);
+    initAStar(path, start, end, map);
 
     openList.push_back(start);
 
-    while(path.status == Path::UNPROCCESSED)
+    while(path->status == Path::UNPROCCESSED)
     {
         qDebug() << "**********LOOP "<< n << "**********" << "(número iterações do while: " << n << ")";
 
@@ -54,7 +54,7 @@ Path AStar::findPath(Node *start, Node *end, Map &map)
         {
             qDebug() << "[DEBUG] openList vazia -> IMPOSSIBLE.";
             //Lista aberta vazia, logo nao temos caminho
-            path.status = Path::IMPOSSIBLE;
+            path->status = Path::IMPOSSIBLE;
             break;
         }
         //Ordena lista aberta pelo menor FCost
@@ -83,14 +83,14 @@ Path AStar::findPath(Node *start, Node *end, Map &map)
 
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
         {
-            path.status = Path::FOUND;
+            path->status = Path::FOUND;
             //TODO : Preencher vector path.foundedPath
             while(actual != start)
             {
-                path.foundedPath.push_back(actual);
+                path->foundedPath.push_back(actual);
                 actual = actual->parent;
             }
-            path.foundedPath.push_back(actual);    //Inserir junto o start.
+            path->foundedPath.push_back(actual);    //Inserir junto o start.
             break;
         }
 
@@ -103,7 +103,7 @@ Path AStar::findPath(Node *start, Node *end, Map &map)
         //  qDebug() << "[DEBUG]Verifica add closedList: " << closedList.size();
 
         //Definir os nós vizinhos
-        defineNeighbors(actual, &map);
+        defineNeighbors(actual, map);
         //qDebug() << "[DEBUG]Saiu defineNeigbors.";
 
         int f2 = 0; //Debug
@@ -189,8 +189,10 @@ Path AStar::findPath(Node *start, Node *end, Map &map)
             qDebug() << "************************************************************************************************\n";
         }
         n++; //Debug while
+//      delete actual;
     }
-    return path;
+
+    return *path;
 }
 
 int AStar::movementCost(Node *actual, Node *neighbor)
