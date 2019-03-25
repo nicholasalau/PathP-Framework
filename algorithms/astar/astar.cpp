@@ -8,6 +8,11 @@ AStar::AStar()
 
 }
 
+AStar::~AStar()
+{
+
+}
+
 void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 {
     //qDebug() << "[A*]Entrou A*.";

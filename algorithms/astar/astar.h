@@ -21,6 +21,7 @@ class AStar
 {
     public:
         AStar();
+        ~AStar();
         void defineNeighbors(Node *actual, Map *map);
         int calculateHCost(Node *actual, Node *final);
         int movementCost(Node *actual, Node *neighbor);

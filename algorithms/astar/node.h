@@ -20,10 +20,4 @@ class Node
         Cell cellptr;
 };
 
-inline Node::Node()
-{
-    //qDebug() << "default constructor.";
-    //qDebug() << map->pixelRepresentation;
-}
-
 #endif // NODE_H
