@@ -55,8 +55,8 @@ void RenderArea::drawEndPos(QPainter &painter)
 
 void RenderArea::drawMap(QPainter &painter)
 {
-    int rows = WORLD_HEIGHT;
-    int columns = WORLD_WIDTH;
+    int rows = WORLD_HEIGHT-1;
+    int columns = WORLD_WIDTH-1;
     int pixelScale = map->pixelRepresentation;
     int displacement = pixelScale - 1;
     int flagFirst = 1;

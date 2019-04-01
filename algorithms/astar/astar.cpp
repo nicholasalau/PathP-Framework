@@ -1,5 +1,6 @@
 ﻿#include "algorithms/astar/astar.h"
 #include "src/map.h"
+#include <iostream>
 #include <cstddef>
 
 
@@ -27,6 +28,9 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     path->foundedPath.clear();
 
     //Inicializa o nó end
+    qDebug() << "SDASADADDADASDASD" << map->end.x;
+    //std::cout << "SDASADADDADASDASD" << map->end.x;
+    map->printMatrix();
     end->cellptr = map->mapMatrix[map->end.x][map->end.y];
     end->FCost = end->GCost = 0;
     end->HCost = calculateHCost(end, end);
@@ -122,12 +126,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
             Node *neighbor = new Node();
             neighbor = actual->neighbors[i];
 
-            qDebug() << "Vizinho a ser analisado:" << i;
-            qDebug() << "x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
-            qDebug() << "isOccupied:" << neighbor->cellptr.isOccupied;
-            qDebug() << "FCost:" << neighbor->FCost;
-            qDebug() << "HCost:" << neighbor->HCost;
-            qDebug() << "\n";
+//            qDebug() << "Vizinho a ser analisado:" << i;
+//            qDebug() << "x[" << neighbor->cellptr.x <<"]" <<"y["<<neighbor->cellptr.y << "]";
+//            qDebug() << "isOccupied:" << neighbor->cellptr.isOccupied;
+//            qDebug() << "FCost:" << neighbor->FCost;
+//            qDebug() << "HCost:" << neighbor->HCost;
+//            qDebug() << "\n";
 
             //Se o vizinho for bloqueado,
             //ou se o vizinho esta na lista fechada, ignora
@@ -152,18 +156,18 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
                 qDebug() << "Nó já está na lista aberta!";
                 int betterGCost = actual->GCost + neighborCost;
 
-                qDebug() << "novoGCost = " << betterGCost;
-                qDebug() << "antigoGCost = " << neighbor->GCost;
-                qDebug() << "parent antigo:" << neighbor->parent->cellptr.x << neighbor->parent->cellptr.y;
+//                qDebug() << "novoGCost = " << betterGCost;
+//                qDebug() << "antigoGCost = " << neighbor->GCost;
+//                qDebug() << "parent antigo:" << neighbor->parent->cellptr.x << neighbor->parent->cellptr.y;
                 if(betterGCost < neighbor->GCost)
                 {
                     qDebug() << "Caminho pode ser encurtado! Atualiza pai,";
                     neighbor->parent = actual;
                     neighbor->GCost = betterGCost;
                     neighbor->FCost = neighbor->HCost + neighbor->GCost;
-                    qDebug() << "custo F: " <<  neighbor->FCost;
-                    qDebug() << "e custo G: " << neighbor->GCost;
-                    qDebug() << "novo parente:" << neighbor->parent->cellptr.x << neighbor->parent->cellptr.y;
+//                    qDebug() << "custo F: " <<  neighbor->FCost;
+//                    qDebug() << "e custo G: " << neighbor->GCost;
+//                    qDebug() << "novo parente:" << neighbor->parent->cellptr.x << neighbor->parent->cellptr.y;
                 }
                 else
                 {
@@ -180,12 +184,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
                 neighbor->GCost = actual->GCost + neighborCost;
                 neighbor->HCost = calculateHCost(neighbor, end);
                 neighbor->FCost = neighbor->HCost + neighbor->GCost;
-                qDebug() << "FCost:" << neighbor->FCost;
-                qDebug() << "GCost:" << neighbor->GCost;
-                qDebug() << "HCost:" << neighbor->HCost;
-                qDebug() << "Posição:" << neighbor->cellptr.x << neighbor->cellptr.y;
-                qDebug() << "Ocupado:" << neighbor->cellptr.isOccupied;
-                qDebug() << "---------------------";
+//                qDebug() << "FCost:" << neighbor->FCost;
+//                qDebug() << "GCost:" << neighbor->GCost;
+//                qDebug() << "HCost:" << neighbor->HCost;
+//                qDebug() << "Posição:" << neighbor->cellptr.x << neighbor->cellptr.y;
+//                qDebug() << "Ocupado:" << neighbor->cellptr.isOccupied;
+//                qDebug() << "---------------------";
 
                 openList.push_back(neighbor);
                 qDebug() << "Inseriu na openList! openList size = " << openList.size();
@@ -263,7 +267,7 @@ void AStar::defineNeighbors(Node *actual, Map *map)
     endX = ((actual->cellptr.x + 1) > MAX_X) ? actual->cellptr.x : actual->cellptr.x + 1;
     initY = ((actual->cellptr.y - 1) < MIN_Y) ? actual->cellptr.y : actual->cellptr.y - 1;
     endY = ((actual->cellptr.y + 1) > MAX_Y) ? actual->cellptr.y : actual->cellptr.y + 1;
-    qDebug() << "[DefineNeighbors]Verificando limites vizinho:" << "initX:" << initX << "endX:" << endX << "initY" << initY << "endY" << endY;
+//    qDebug() << "[DefineNeighbors]Verificando limites vizinho:" << "initX:" << initX << "endX:" << endX << "initY" << initY << "endY" << endY;
 
     for(row = initY; row <= endY; row++)
     {
@@ -274,7 +278,7 @@ void AStar::defineNeighbors(Node *actual, Map *map)
             if((row == actual->cellptr.y) && (col == actual->cellptr.x)) //|| (findNode(closedList, actual) == 1))
             {
                 //Caso nodo seja ele mesmo ou algum nodo já inserido na lista fechada, não inserí-lo novamente!
-                qDebug() << "[defineNeighbors]É o próprio nodo!" << actual->cellptr.x << actual->cellptr.y;
+//                qDebug() << "[defineNeighbors]É o próprio nodo!" << actual->cellptr.x << actual->cellptr.y;
                 continue;
             }
             else
@@ -284,35 +288,35 @@ void AStar::defineNeighbors(Node *actual, Map *map)
                 n->cellptr = map->mapMatrix[col][row];
                 n->parent = nullptr;
                 n->FCost = n->GCost = n->HCost = 0;
-                qDebug() << "[defineNeighbors]Verificando se este nodo ja existe na lista aberta:";
+//                qDebug() << "[defineNeighbors]Verificando se este nodo ja existe na lista aberta:";
                 if(findNode(openList, n))
                 {
                     Node *temp = new Node();
                     temp = findNode(openList, n);
                     n = temp;
-                    qDebug() << "[defineNeighbors]Nodo ja existe (lista aberta)! Logo ja possui seus custos calculados abaixo:";
-                    qDebug() << "FCost:" << n->FCost;
-                    qDebug() << "GCost:" << n->GCost;
-                    qDebug() << "HCost:" << n->HCost;
-                    qDebug() << "Posição:" << n->cellptr.x << n->cellptr.y;
-                    qDebug() << "Ocupado:" << n->cellptr.isOccupied;
+//                    qDebug() << "[defineNeighbors]Nodo ja existe (lista aberta)! Logo ja possui seus custos calculados abaixo:";
+//                    qDebug() << "FCost:" << n->FCost;
+//                    qDebug() << "GCost:" << n->GCost;
+//                    qDebug() << "HCost:" << n->HCost;
+//                    qDebug() << "Posição:" << n->cellptr.x << n->cellptr.y;
+//                    qDebug() << "Ocupado:" << n->cellptr.isOccupied;
                 } else if (findNode(closedList, n) || n->cellptr.isOccupied == 1.0)
                 {
-                    qDebug() << "[defineNeighbors]Nodo está na lista fechada ou eh nodo ocupado, logo não inserí-lo.";
+//                    qDebug() << "[defineNeighbors]Nodo está na lista fechada ou eh nodo ocupado, logo não inserí-lo.";
                     continue;
                 }
 
                 nc = actual->neighborCount; //Debug
-                qDebug() << "[defineNeighbors]Inserindo neighbor -> " << "X:" << n->cellptr.x << "Y:" << n->cellptr.y << "(" << actual->neighborCount << ")";
-                qDebug() << "FCost:" << n->FCost;
-                qDebug() << "GCost:" << n->GCost;
-                qDebug() << "HCost:" << n->HCost;
-                qDebug() << "Ocupado:" << n->cellptr.isOccupied;
+//                qDebug() << "[defineNeighbors]Inserindo neighbor -> " << "X:" << n->cellptr.x << "Y:" << n->cellptr.y << "(" << actual->neighborCount << ")";
+//                qDebug() << "FCost:" << n->FCost;
+//                qDebug() << "GCost:" << n->GCost;
+//                qDebug() << "HCost:" << n->HCost;
+//                qDebug() << "Ocupado:" << n->cellptr.isOccupied;
                 actual->neighbors.push_back(n);
-                qDebug() << "Testando se inseriu o vizinho ok -> " << "X:" << actual->neighbors[nc]->cellptr.x << "Y:" << actual->neighbors[nc]->cellptr.y;
-                qDebug() << "FCost:" << actual->neighbors[nc]->FCost;//n->FCost;
-                qDebug() << "Neighbors[" << nc << "]:" << actual->neighbors[nc]->cellptr.x << actual->neighbors[nc]->cellptr.y;
-                qDebug() << "\n";
+//                qDebug() << "Testando se inseriu o vizinho ok -> " << "X:" << actual->neighbors[nc]->cellptr.x << "Y:" << actual->neighbors[nc]->cellptr.y;
+//                qDebug() << "FCost:" << actual->neighbors[nc]->FCost;//n->FCost;
+//                qDebug() << "Neighbors[" << nc << "]:" << actual->neighbors[nc]->cellptr.x << actual->neighbors[nc]->cellptr.y;
+//                qDebug() << "\n";
                 actual->neighborCount++;
             }
         }
@@ -327,8 +331,8 @@ Node* AStar::findNode(std::vector<Node*> list, Node *nodeToFind)
     //int found = 0;
 
 
-    qDebug() << "---FINDNODE---";
-    qDebug() << "[findNode]List size:" << size;
+//    qDebug() << "---FINDNODE---";
+//    qDebug() << "[findNode]List size:" << size;
 //    qDebug() << "--------------";
 //    qDebug() << "Verificando nodo procurado chegou";
 //    qDebug() << "Posição: " << nodeToFind->cellptr.x << nodeToFind->cellptr.y;
@@ -336,15 +340,15 @@ Node* AStar::findNode(std::vector<Node*> list, Node *nodeToFind)
 
     for(i = 0; i<size; i++)
     {
-        qDebug() << "[findNode]Nodo procurado: X[" << nodeToFind->cellptr.x << "] Y[" << nodeToFind->cellptr.y << "]";
-        qDebug() << "[findNode]Nodo da lista: X[" << list[i]->cellptr.x << "] Y[" << list[i]->cellptr.y << "]" << "Custo F:" << list[i]->FCost;
+//        qDebug() << "[findNode]Nodo procurado: X[" << nodeToFind->cellptr.x << "] Y[" << nodeToFind->cellptr.y << "]";
+//        qDebug() << "[findNode]Nodo da lista: X[" << list[i]->cellptr.x << "] Y[" << list[i]->cellptr.y << "]" << "Custo F:" << list[i]->FCost;
         if(list[i]->cellptr.x == nodeToFind->cellptr.x && list[i]->cellptr.y == nodeToFind->cellptr.y)
         {
-            qDebug() << "[findNode]Achou nodo!";
+            //qDebug() << "[findNode]Achou nodo!";
             return list[i];
         }
     }
-    qDebug() << "[findNode]Nao achou nodo!";
-    qDebug() << "---------------\n";
+//    qDebug() << "[findNode]Nao achou nodo!";
+//    qDebug() << "---------------\n";
     return NULL;
 }

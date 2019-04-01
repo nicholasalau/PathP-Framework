@@ -40,15 +40,8 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    delete astar;
-    delete path;
-    delete start;
-    delete end;
-    delete map;
-
     return a.exec();
 }
-//TODO : Inicializar por ex, em node.h, temos Map *map, colocar no construtor e apagar no destrutor. Verificar funcionamento. Referência ->https://stackoverflow.com/questions/677653/does-delete-call-the-destructor
 //TODO : Criar destructors.
 //TODO : Inserir RRT.
 //TODO : Comparar os algoritmos.
