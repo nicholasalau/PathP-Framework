@@ -17,6 +17,7 @@ class Map
 {
     public:
         Map();//int pr;
+        ~Map();
         void setMap();  //Set mapMatrix
         void readFile(); //Set QStringList coordinates
         void initMapMatrix();
@@ -27,8 +28,8 @@ class Map
         std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f> > obstacles;
         Cell mapMatrix[WORLD_HEIGHT][WORLD_WIDTH];
         int pixelRepresentation;   /*(i.e. 1 cell = 3x3 square pixel, instead of 1 cell = 1 pixel)*/
-        Cell begin;
-        Cell end;
+        Cell *begin;
+        Cell *end;
 
     private:
         /*Ler arquivo*/

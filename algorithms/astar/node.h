@@ -16,7 +16,7 @@ class Node
         int GCost = 0, HCost = 0, FCost = 0;
         Node *parent = nullptr;
         std::vector<Node*> neighbors;
-        Map *map;
+        //Map *map;
         Cell cellptr;
 };
 

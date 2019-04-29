@@ -1,10 +1,33 @@
 #include "map.h"
+#include "cell.h"
+
+//extern Map *map;
 
 Map::Map()
 {
+    qDebug() << endl << "Map constructor.";
+    //map = new Map();
     pixelRepresentation = 0;
+    Cell **mapMatrix = new Cell *[WORLD_HEIGHT];
+    for(int i = 0; i < WORLD_HEIGHT; i++)
+    {
+        mapMatrix[i] = new Cell[WORLD_WIDTH];
+    }
+//https://stackoverflow.com/questions/16001803/pointer-to-pointer-dynamic-two-dimensional-array
+//https://stackoverflow.com/questions/1403150/how-do-you-dynamically-allocate-a-matrix
     initMapMatrix();
+    setMap();
 }
+
+Map::~Map()
+{
+//    for (int i = 0; i < WORLD_HEIGHT; ++i)
+//    {
+//        delete [] mapMatrix[i];
+//    }
+//    delete [] mapMatrix;
+}
+
 
 void Map::setMap()
 {
@@ -16,7 +39,10 @@ void Map::setMap()
 
     readFile();
 
-    defineCells(&begin, &end);
+    begin = new Cell();
+    end = new Cell();
+
+    defineCells(begin, end);
 
     //qDebug() << begin.x << "POS X INICIO";
     //qDebug() << begin.y << "POS Y INICIO";
@@ -89,6 +115,8 @@ void Map::initMapMatrix()
     int i = 0;
     int j = 0;
 
+    qDebug() << "initMapMatrix.";
+
     for (i = 0; i <= rows; i++)
     {
         for(j = 0; j <= columns; j++)
@@ -98,7 +126,6 @@ void Map::initMapMatrix()
             mapMatrix[j][i].y = i;
         }
     }
-    return;
 }
 
 void Map::printMatrix()

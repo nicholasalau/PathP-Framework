@@ -4,6 +4,7 @@
 class Cell
 {
     public:
+        ~Cell();
         double isOccupied;   /*
                                0 - Free
                                1 - Block

@@ -21,7 +21,8 @@ SOURCES += src/main.cpp\
     src/renderarea.cpp \
     src/map.cpp \
     algorithms/astar/astar.cpp \
-    algorithms/astar/node.cpp
+    algorithms/astar/node.cpp \
+    src/cell.cpp
 
 HEADERS  += src/mainwindow.h \
     src/renderarea.h \

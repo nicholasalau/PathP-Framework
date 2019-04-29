@@ -6,51 +6,70 @@
 
 AStar::AStar()
 {
-
+    qDebug() << "AStar constructor.";
 }
 
 AStar::~AStar()
 {
-
+    qDebug() << "AStar destructor.";
+    //delete start;
+    //delete end;
 }
 
 void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 {
     //qDebug() << "[A*]Entrou A*.";
-    //Inicializa path
-    path->start = start;
-    path->end = end;
-    path->status = Path::UNPROCCESSED;
 
     //Inicializa listas
     openList.clear();   //Nodos a serem analisados
     closedList.clear(); //Nodos ja analisados
     path->foundedPath.clear();
 
+
+    //qDebug() << "SDASADADDADASDASD" << map->end->x;
+    //map->printMatrix();
+    //qDebug() << map->end->x << " | " << map->end->y;
+
     //Inicializa o nó end
-    qDebug() << "SDASADADDADASDASD" << map->end.x;
-    //std::cout << "SDASADADDADASDASD" << map->end.x;
-    map->printMatrix();
-    end->cellptr = map->mapMatrix[map->end.x][map->end.y];
+    end->cellptr = map->mapMatrix[map->end->x][map->end->y];
     end->FCost = end->GCost = 0;
     end->HCost = calculateHCost(end, end);
     end->parent = nullptr;
 
+
+
+    qDebug() << "atribui end";
+
     //Inicializa o nó start
-    start->cellptr = map->mapMatrix[map->begin.x][map->begin.y];
+    start->cellptr = map->mapMatrix[map->begin->x][map->begin->y];
     start->FCost = start->GCost = 0;
     start->HCost = calculateHCost(start, end);
     start->parent = nullptr;
+    qDebug() << "atribui end";
+
+
+    //Inicializa path
+    path->start = start;
+    path->end = end;
+    path->status = Path::UNPROCCESSED;
+    qDebug() << "atribui end";
+
 
 }
 
-Path AStar::findPath(Node *start, Node *end, Map *map)
+Path *AStar::findPath(Map *map)
 {
     Path *path = new Path; // TODO : usar new Path?
 
+    Node *start = new Node;
+    Node *end = new Node;
+
     int n = 0; //Debug
 
-    initAStar(path, start, end, map);
+    initAStar(path,start, end, map);
+
+    qDebug() << start->cellptr.x;
+    qDebug() << start->cellptr.y;
 
     openList.push_back(start);
 
@@ -87,13 +106,12 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
         if(openList[1]) //Debug
         { //Debug
             scnd = openList[1]; //Debug
-            qDebug() << "Coordenadas e custo F do SEGUNDO nodo da openList: X[" << scnd->cellptr.x << "]" << "Y[" << scnd->cellptr.y << "] Custo F = " << scnd->FCost; //Debug
+            //qDebug() << "Coordenadas e custo F do SEGUNDO nodo da openList: X[" << scnd->cellptr.x << "]" << "Y[" << scnd->cellptr.y << "] Custo F = " << scnd->FCost; //Debug
         } //Debug
 
         if((actual->cellptr.x == end->cellptr.x) && (actual->cellptr.y == end->cellptr.y))
         {
             path->status = Path::FOUND;
-            //TODO : Preencher vector path.foundedPath
             while(actual != start)
             {
                 path->foundedPath.push_back(actual);
@@ -201,7 +219,7 @@ Path AStar::findPath(Node *start, Node *end, Map *map)
 //      delete actual;
     }
 
-    return *path;
+    return path;
 }
 
 int AStar::movementCost(Node *actual, Node *neighbor)

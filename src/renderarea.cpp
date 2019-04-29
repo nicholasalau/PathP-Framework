@@ -13,8 +13,12 @@ void RenderArea::paintEvent(QPaintEvent *)
     drawInitPos(painter);
     drawEndPos(painter);
     drawMap(painter);
-    drawPaths(painter);
+
+    if(path != nullptr)
+        drawPaths(painter);
+    else qDebug() << endl << "sem path";
     //Add funcoes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    qDebug() << endl << "print";
     emit painting();
 }
 

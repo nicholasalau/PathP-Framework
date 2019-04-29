@@ -6,13 +6,16 @@ MainWindow::MainWindow(Map *map, Path *path, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    area = ui->area;
-    area->map = map;
-    area->path = path;
 }
 
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setThings(Map *map, Path *path)
+{
+    ui->area->map = map;
+    ui->area->path = path;
 }

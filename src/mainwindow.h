@@ -17,6 +17,8 @@ public:
     explicit MainWindow(Map *map, Path *path, QWidget *parent = 0);
     ~MainWindow();
 
+    void setThings(Map *map, Path *path);
+
 private:
     Ui::MainWindow *ui;
     RenderArea *area;
