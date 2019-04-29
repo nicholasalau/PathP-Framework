@@ -26,7 +26,7 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     path->foundedPath.clear();
 
 
-    //qDebug() << "SDASADADDADASDASD" << map->end->x;
+    qDebug() << "SDASADADDADASDASD" << map->end->x;
     //map->printMatrix();
     //qDebug() << map->end->x << " | " << map->end->y;
 
@@ -248,15 +248,15 @@ int AStar::calculateHCost(Node *actual, Node *final)
     absY = abs(actual->cellptr.y - final->cellptr.y);
 
     //Distancia de Manhattan considerando diagonais
-//    if (absX > absY)
-//    {
-//        h = 14 * absY + 10 * (absX - absY);
-//    }
-//    else
-//    {
-//        h = 14 * absX + 10 * (absY - absX);
-//    }
-    h = absX + absY;
+    if (absX > absY)
+    {
+        h = 14 * absY + 10 * (absX - absY);
+    }
+    else
+    {
+        h = 14 * absX + 10 * (absY - absX);
+    }
+    //h = absX + absY;
 
     return h*10;
 }

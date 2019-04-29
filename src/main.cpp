@@ -13,7 +13,7 @@ Path *path = nullptr;// = new Path;
 
 void *startPathsThread(void *ref)
 {
-    qDebug() << endl << "Entrou Thread.";
+    qDebug() << endl << "Entrou thread.";
     AStar *astar = (AStar*) ref;
 
     map->setPixelRepresentation(1);
@@ -26,8 +26,17 @@ void *startPathsThread(void *ref)
 
     path = astar->findPath(map);
 
+    ///***Teste trajetoria A* - [OK]***/
+        int i = 0;
+        qDebug() << path->foundedPath.size();
+        for(i = 0; i < path->foundedPath.size(); i++)
+        {
+            qDebug() << path->foundedPath[i]->cellptr.x << path->foundedPath[i]->cellptr.y;
+        }
+    ///********************************/
 
-    qDebug() << endl << "Acabou.";
+
+    qDebug() << endl << "Acabou thread.";
 
     return NULL;
 
@@ -49,14 +58,7 @@ int main(int argc, char *argv[])
 //        case Path::IMPOSSIBLE : qDebug() << "IMPOSSIBLE"; break;
 //    }
 
-///***Teste trajetoria A* - [OK]***/
-//    int i = 0;
-//    qDebug() << path->foundedPath.size();
-//    for(i = 0; i < path->foundedPath.size(); i++)
-//    {
-//        qDebug() << path->foundedPath[i]->cellptr.x << path->foundedPath[i]->cellptr.y;
-//    }
-///********************************/
+
 
     //std::thread t1(thread_paths);
     AStar *as = new AStar();
@@ -64,6 +66,8 @@ int main(int argc, char *argv[])
     pthread_t pathsThread;
     pthread_create(&(pathsThread),NULL,startPathsThread,(void*)as);
     pthread_join(pathsThread, 0);
+
+    qDebug() << "Volta mainwindow.";
 
     MainWindow w(map, path);
 

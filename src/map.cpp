@@ -8,13 +8,15 @@ Map::Map()
     qDebug() << endl << "Map constructor.";
     //map = new Map();
     pixelRepresentation = 0;
-    Cell **mapMatrix = new Cell *[WORLD_HEIGHT];
-    for(int i = 0; i < WORLD_HEIGHT; i++)
+    Cell **mapMatrix = new Cell*[WORLD_HEIGHT-1];
+    for(int i = 0; i <= WORLD_HEIGHT; i++)
     {
-        mapMatrix[i] = new Cell[WORLD_WIDTH];
+        mapMatrix[i] = new Cell[WORLD_WIDTH-1];
     }
 //https://stackoverflow.com/questions/16001803/pointer-to-pointer-dynamic-two-dimensional-array
 //https://stackoverflow.com/questions/1403150/how-do-you-dynamically-allocate-a-matrix
+    //mapMatrix[0][0].x = 1;
+
     initMapMatrix();
     setMap();
 }
@@ -115,7 +117,6 @@ void Map::initMapMatrix()
     int i = 0;
     int j = 0;
 
-    qDebug() << "initMapMatrix.";
 
     for (i = 0; i <= rows; i++)
     {
