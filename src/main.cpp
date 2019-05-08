@@ -75,4 +75,4 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 //TODO : Inserir RRT.
-//TODO : Comparar os tempos dos algoritmos.
+//TODO : Comparar os tempos dos algoritmos. => time.h

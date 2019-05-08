@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>570</width>
-    <height>400</height>
+    <height>404</height>
    </rect>
   </property>
   <property name="font">
@@ -16,6 +16,9 @@
     <italic>true</italic>
     <bold>false</bold>
    </font>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -42,6 +45,58 @@
     </property>
     <property name="text">
      <string>Select algorithms</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="astarCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>40</y>
+      <width>92</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string>A*</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="rrtCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>60</y>
+      <width>92</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RRT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>220</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Best time:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>240</y>
+      <width>104</width>
+      <height>70</height>
+     </rect>
     </property>
    </widget>
   </widget>

@@ -6,6 +6,7 @@ MainWindow::MainWindow(Map *map, Path *path, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+//    https://stackoverflow.com/questions/34969533/qt-catching-signal-of-checkbox-to-do-an-action
 }
 
 
