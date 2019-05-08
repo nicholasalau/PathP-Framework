@@ -26,7 +26,7 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     path->foundedPath.clear();
 
 
-    qDebug() << "SDASADADDADASDASD" << map->end->x;
+    //qDebug() << "SDASADADDADASDASD" << map->end->x;
     //map->printMatrix();
     //qDebug() << map->end->x << " | " << map->end->y;
 
@@ -59,6 +59,8 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 
 Path *AStar::findPath(Map *map)
 {
+    qDebug() << endl << "[Thread.findPath] Entrou.";
+
     Path *path = new Path; // TODO : usar new Path?
 
     Node *start = new Node;

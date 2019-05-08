@@ -1,8 +1,8 @@
 #ifndef CONSTANTS
 #define CONSTANTS
 
-const int WORLD_WIDTH = 250;
-const int WORLD_HEIGHT = 250;
+const int WORLD_WIDTH = 550;
+const int WORLD_HEIGHT = 550;
 const int MIN_X = 0;
 const int MIN_Y = 0;
 const int MAX_X = WORLD_WIDTH - 1;

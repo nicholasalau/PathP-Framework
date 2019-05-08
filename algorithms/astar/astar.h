@@ -26,7 +26,7 @@ class AStar
         int calculateHCost(Node *actual, Node *final);
         int movementCost(Node *actual, Node *neighbor);
         void initAStar(Path *path, Node *start, Node *end, Map *map);
-        Path* findPath(Map *map);
+        Path *findPath(Map *map);
         Node *findNode(std::vector<Node*> list, Node *nodeToFind);
         std::vector<Node*> openList; //Verificar alocaçao correta mem. - faz auto
         std::vector<Node*> closedList;
