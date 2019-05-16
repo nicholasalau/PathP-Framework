@@ -36,8 +36,6 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
     end->HCost = calculateHCost(end, end);
     end->parent = nullptr;
 
-
-
     qDebug() << "atribui end";
 
     //Inicializa o nó start

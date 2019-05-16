@@ -22,7 +22,8 @@ SOURCES += src/main.cpp\
     src/map.cpp \
     algorithms/astar/astar.cpp \
     algorithms/astar/node.cpp \
-    src/cell.cpp
+    src/cell.cpp \
+    algorithms/rrt/rrt.cpp
 
 HEADERS  += src/mainwindow.h \
     src/renderarea.h \
@@ -30,6 +31,7 @@ HEADERS  += src/mainwindow.h \
     src/constants.h \
     algorithms/astar/astar.h \
     src/cell.h \
-    algorithms/astar/node.h
+    algorithms/astar/node.h \
+    algorithms/rrt/rrt.h
 
 FORMS    += src/mainwindow.ui

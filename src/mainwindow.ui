@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>570</width>
-    <height>404</height>
+    <height>470</height>
    </rect>
   </property>
   <property name="font">
@@ -47,7 +47,7 @@
      <string>Select algorithms</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="astarCheckBox">
+   <widget class="QCheckBox" name="astarCB">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -63,7 +63,7 @@
      <string>A*</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="rrtCheckBox">
+   <widget class="QCheckBox" name="rrtCB">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -76,27 +76,66 @@
      <string>RRT</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>220</y>
-      <width>81</width>
+      <y>400</y>
+      <width>104</width>
+      <height>61</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="runPB">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>230</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Run</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="restartPB">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>260</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Restart</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="status">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>200</y>
+      <width>131</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Status: </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="bestTime">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>380</y>
+      <width>67</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
      <string>Best time:</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>240</y>
-      <width>104</width>
-      <height>70</height>
-     </rect>
     </property>
    </widget>
   </widget>

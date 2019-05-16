@@ -17,6 +17,8 @@ struct Path
     std::vector<Node*> foundedPath;
 };
 
+//TODO : Criar class path.
+
 class AStar
 {
     public:

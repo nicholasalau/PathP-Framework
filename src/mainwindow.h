@@ -17,7 +17,12 @@ public:
     explicit MainWindow(Map *map, Path *path, QWidget *parent = 0);
     ~MainWindow();
 
-    void setThings(Map *map, Path *path);
+    //void setThings(Map *map, Path *path);
+
+private slots:
+    void on_runPB_clicked();
+
+    void on_restartPB_clicked();
 
 private:
     Ui::MainWindow *ui;

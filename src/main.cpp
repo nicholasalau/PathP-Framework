@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    w.setThings(map, path);
+    //w.setThings(map, path);
 
     return a.exec();
 }
