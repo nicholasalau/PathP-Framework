@@ -30,9 +30,13 @@ void MainWindow::on_runPB_clicked()
 
     //    if(ui->astarCB->isChecked())
 //    {
-//        // Run Astar
+//        // Run Astar.
 //    }
 
+    //    if(ui->rrtCB->isChecked())
+//    {
+//        // Run RRT.
+//    }
     // Após executar os algoritmos pegar a informacao de tempo de cada e verificar qual o menor
     // Setar entao o txt da box de resultados : ui->resultBox->setText("Algoritmo X : tempo X");
 
@@ -43,8 +47,12 @@ void MainWindow::on_restartPB_clicked()
 {
     ui->status->setText("Status: Reiniciou.");
     ui->textEdit->setText("Pressione Run.");
+
+    std::vector<Node*>().swap(ui->area->path->foundedPath);
+
+    //qDebug() << ui->area->path->foundedPath[0]->cellptr.x << ui->area->path->foundedPath[0]->cellptr.y;
+    qDebug() << ui->area->path->foundedPath.size();
     // Limpar algoritmos
-    // Clear path
-    // area->update()
-    //
+    area->update();
+
 }

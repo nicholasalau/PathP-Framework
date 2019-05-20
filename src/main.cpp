@@ -4,7 +4,6 @@
 #include "algorithms/astar/astar.h"
 #include "algorithms/astar/node.h"
 #include <QApplication>
-
 #include <pthread.h>
 
 Map *map = new Map();

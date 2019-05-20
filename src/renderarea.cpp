@@ -14,7 +14,7 @@ void RenderArea::paintEvent(QPaintEvent *)
     drawEndPos(painter);
     drawMap(painter);
 
-    if(path != nullptr)
+    if(path != nullptr || path->foundedPath.size() != 0)
         drawPaths(painter);
     else qDebug() << endl << "sem path";
     //Add funcoes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

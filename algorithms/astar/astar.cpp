@@ -12,6 +12,9 @@ AStar::AStar()
 AStar::~AStar()
 {
     qDebug() << "AStar destructor.";
+    //Limpar e desalocar closedList e openList
+    std::vector<Node*>().swap(openList);
+    std::vector<Node*>().swap(closedList);
     //delete start;
     //delete end;
 }
@@ -216,8 +219,11 @@ Path *AStar::findPath(Map *map)
             qDebug() << "************************************************************************************************\n";
         }
         n++; //Debug while
-//      delete actual;
+  //      delete actual;
     }
+
+    delete start;
+    delete end;
 
     return path;
 }

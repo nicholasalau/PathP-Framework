@@ -25,6 +25,7 @@ class Map
         void setPixelRepresentation(int pr);
         void defineCells(Cell *begin, Cell *end);
         QStringList coordinates;
+        std::vector<std::pair<Eigen::Vector2f, Eigen::Vector2f> > das;
         Cell mapMatrix[WORLD_HEIGHT][WORLD_WIDTH];
         int pixelRepresentation;   /*(i.e. 1 cell = 3x3 square pixel, instead of 1 cell = 1 pixel)*/
         Cell *begin;
