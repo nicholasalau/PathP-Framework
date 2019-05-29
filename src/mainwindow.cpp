@@ -48,11 +48,13 @@ void MainWindow::on_restartPB_clicked()
     ui->status->setText("Status: Reiniciou.");
     ui->textEdit->setText("Pressione Run.");
 
+    // Limpar Path.
     std::vector<Node*>().swap(ui->area->path->foundedPath);
 
     //qDebug() << ui->area->path->foundedPath[0]->cellptr.x << ui->area->path->foundedPath[0]->cellptr.y;
     qDebug() << ui->area->path->foundedPath.size();
     // Limpar algoritmos
+    delete ui->area->path;
     area->update();
 
 }

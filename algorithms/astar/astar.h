@@ -15,6 +15,8 @@ struct Path
     enum Status {UNPROCCESSED, FOUND, IMPOSSIBLE};
     Status status;
     std::vector<Node*> foundedPath;
+    std::vector<Cell*> foundedPathC;
+
 };
 
 //TODO : Criar class path.
@@ -30,7 +32,7 @@ class AStar
         int calculateHCost(Node *actual, Node *final);
         int movementCost(Node *actual, Node *neighbor);
         void initAStar(Path *path, Node *start, Node *end, Map *map);
-        Path *run(Map *map);
+        Path *findPath(Map *map);
         Node *findNode(std::vector<Node*> list, Node *nodeToFind);
         std::vector<Node*> openList;
         std::vector<Node*> closedList;

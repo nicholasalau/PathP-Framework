@@ -106,9 +106,16 @@ void RenderArea::drawPaths(QPainter &painter)
 
     int i = 0;
 
-    for(i = 0; i < path->foundedPath.size(); i++)
+    if(path->foundedPath.size() == 0)
     {
-        painter.drawEllipse(path->foundedPath[i]->cellptr.x, path->foundedPath[i]->cellptr.y, 3.0, 3.0);
+        return;
+    }
+    else
+    {
+        for(i = 0; i < path->foundedPath.size(); i++)
+        {
+            painter.drawEllipse(path->foundedPath[i]->cellptr.x, path->foundedPath[i]->cellptr.y, 3.0, 3.0);
+        }
     }
     painter.restore();
 }

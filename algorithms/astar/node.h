@@ -18,6 +18,7 @@ class Node
         std::vector<Node*> neighbors;
         //Map *map;
         Cell cellptr;
+        Cell *cellptrtst;
 };
 
 #endif // NODE_H

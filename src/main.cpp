@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 Map *map = new Map();
-Path *path = nullptr;// = new Path;
+Path *path = nullptr;
 
 void *startPathsThread(void *ref)
 {
@@ -19,7 +19,6 @@ void *startPathsThread(void *ref)
 
     //widget->resize(165, widget->height()); Utilizar para setar tamanho do mapa automaticamente sem precisar mudar mainwindow manualmente!
 
-    // TODO: Criar "algorithmInit(&map)" para verificar e inicializar os algoritmos escolhidos
     qDebug() << endl << "[Thread] setou Map.";
 
     path = astar->findPath(map);
@@ -33,13 +32,19 @@ void *startPathsThread(void *ref)
                     {
                         qDebug() << "FOUND";
                         ///***Teste trajetoria A* - [OK]***/
-                            int i = 0;
-                            qDebug() << path->foundedPath.size();
-                            for(i = 0; i < path->foundedPath.size(); i++)
-                            {
-                                qDebug() << path->foundedPath[i]->cellptr.x << path->foundedPath[i]->cellptr.y;
-                            }
+                        int i = 0;
+                        qDebug() << path->foundedPath.size();
+                        for(i = 0; i < path->foundedPath.size(); i++)
+                        {
+                            qDebug() << path->foundedPath[i]->cellptr.x << path->foundedPath[i]->cellptr.y;
+                        }
                         ///********************************/
+                        qDebug() << "--------------teste-------------";
+                        qDebug() << path->foundedPathC.size();
+                        for(i = 0; i < path->foundedPathC.size(); i++)
+                        {
+                            qDebug() << path->foundedPathC[i]->x << path->foundedPathC[i]->y;
+                        }
                         break;
                     }
         case Path::UNPROCCESSED : qDebug() << "UNPROCESSED"; break;

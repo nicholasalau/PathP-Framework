@@ -35,6 +35,7 @@ void AStar::initAStar(Path *path, Node *start, Node *end, Map *map)
 
     //Inicializa o nó end
     end->cellptr = map->mapMatrix[map->end->x][map->end->y];
+    end->cellptrtst = &map->mapMatrix[map->end->x][map->end->y];
     end->FCost = end->GCost = 0;
     end->HCost = calculateHCost(end, end);
     end->parent = nullptr;
@@ -97,6 +98,7 @@ Path *AStar::findPath(Map *map)
         qDebug() << "[DEBUG]Teste reordenamento: ";
         //Ordenando a lista em ordem crescente, logo primeiro valor eh o com menor custo F
         Node *actual = new Node;
+        Cell c;
         actual = openList[0];
         qDebug() << "Infos sobre o primeiro nodo da lista a ser analisado:";
         qDebug() << "FCost:" << actual->FCost;
@@ -118,8 +120,19 @@ Path *AStar::findPath(Map *map)
             while(actual != start)
             {
                 path->foundedPath.push_back(actual);
+
+//                c.x = actual->cellptr.x;
+//                c.y = actual->cellptr.y;
+//                c.isOccupied = actual->cellptr.isOccupied;
+//                path->foundedPathC.push_back(&c);
+
                 actual = actual->parent;
+                //qDebug() << actual->parent->cellptr.x;
+//                c.x = actual->cellptr.x;
+//                c.y = actual->cellptr.y;
+//                c.isOccupied = actual->cellptr.isOccupied;
             }
+//            path->foundedPathC.push_back(&c);
             path->foundedPath.push_back(actual);    //Inserir junto o start.
             break;
         }
@@ -221,7 +234,7 @@ Path *AStar::findPath(Map *map)
         n++; //Debug while
   //      delete actual;
     }
-
+    qDebug() <<  "Cellptrtst!!!!!!!!!!!!!!!!!!" << end->cellptrtst->x << end->cellptrtst->y;
     delete start;
     delete end;
 
